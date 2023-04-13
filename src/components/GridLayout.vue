@@ -2,27 +2,71 @@
   <div class="container pt-5">
     <div class="grid-header d-flex justify-content-between align-items-center">
       <nav class="nav">
-        <a class="nav-link active" href="#">All</a>
-        <a class="nav-link" href="#">Glasses</a>
-        <a class="nav-link" href="#">Chairs</a>
-        <a class="nav-link" href="#">Active</a>
+        <a
+          class="nav-link active"
+          href="#"
+          >All</a
+        >
+        <a
+          class="nav-link"
+          href="#"
+          >Glasses</a
+        >
+        <a
+          class="nav-link"
+          href="#"
+          >Chairs</a
+        >
+        <a
+          class="nav-link"
+          href="#"
+          >Active</a
+        >
       </nav>
 
       <div class="dropdown nav">
-        <a class="dropdown-toggle nav-link pe-0" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        <a
+          class="dropdown-toggle nav-link pe-0"
+          href="#"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
           Filter
         </a>
 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <ul
+          class="dropdown-menu"
+          aria-labelledby="dropdownMenuLink"
+        >
+          <li>
+            <a
+              class="dropdown-item"
+              href="#"
+              >Action</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="#"
+              >Another action</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="#"
+              >Something else here</a
+            >
+          </li>
         </ul>
       </div>
     </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
       <SingleProduct
-        v-for="product, key in products"
+        v-for="(product, key) in products"
         :key="key"
         :product="product"
       />
@@ -35,22 +79,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import SingleProduct from './SingleProduct.vue';
+import { Component, Vue } from "vue-property-decorator";
+import SingleProduct from "./SingleProduct.vue";
+import products from "@/data/products";
 
-export default Vue.extend({
-  name: "GridLayout",
-  components: { SingleProduct },
-  data: function () {
-    return {
-      products: PRODUCTS
-    };
-  },
-
-  async mounted() {
-    console.log(this.products);    
-  },
-})
+@Component({ components: { SingleProduct } })
+export default class extends Vue {
+  products = products;
+}
 </script>
 
 <style lang="scss">
@@ -59,7 +95,7 @@ export default Vue.extend({
   .nav {
     .nav-link {
       color: inherit;
-      opacity: .5;
+      opacity: 0.5;
       font-weight: 600;
 
       &:hover,
