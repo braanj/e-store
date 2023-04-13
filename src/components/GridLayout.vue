@@ -43,13 +43,67 @@ export default Vue.extend({
   components: { SingleProduct },
   data: function () {
     return {
-      products: PRODUCTS
+      products: [
+        {
+          name: 'Lorem ipsum',
+          description: 'Lorem ipsum dolor, sit amet consectetur.',
+          link: '/single',
+          price: 50,
+          stars: 3,
+          solde: 35
+        },
+        {
+          name: 'Lorem ipsum',
+          description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse deleniti illo quod expedita.',
+          link: '/single',
+          price: 50,
+          stars: 4
+        },
+        {
+          name: 'Lorem ipsum',
+          description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse deleniti illo quod expedita.',
+          link: '/single',
+          price: 50,
+          stars: 2
+        },
+        {
+          name: 'Lorem ipsum',
+          description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse deleniti illo quod expedita.',
+          link: '/single',
+          price: 50,
+          stars: 1
+        },
+        {
+          name: 'Lorem ipsum',
+          description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse deleniti illo quod expedita.',
+          link: '/single',
+          price: 50,
+          stars: 1
+        },
+        {
+          name: 'Lorem ipsum',
+          description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse deleniti illo quod expedita.',
+          link: '/single',
+          price: 50,
+          stars: 1
+        },
+        {
+          name: 'Lorem ipsum',
+          description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse deleniti illo quod expedita.',
+          link: '/single',
+          price: 50,
+          stars: 1
+        },
+        {
+          name: 'Lorem ipsum',
+          description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse deleniti illo quod expedita.',
+          link: '/single',
+          price: 50,
+          stars: 1
+        },
+      ]
     };
-  },
-
-  async mounted() {
-    console.log(this.products);    
-  },
+  }
 })
 </script>
 

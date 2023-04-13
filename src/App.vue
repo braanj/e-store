@@ -2,17 +2,19 @@
   <div id="app">
     <NavBar />
     <router-view />
+    <FooterNav />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import NavBar from './components/NavBar.vue';
+import FooterNav from './components/FooterNav.vue';
 
 
 export default Vue.extend({
   name: "App",
-  components: { NavBar }
+  components: { NavBar, FooterNav }
 })
 </script>
 
