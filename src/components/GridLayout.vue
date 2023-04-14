@@ -4,7 +4,7 @@
     <ais-instant-search :search-client="searchClient" index-name="products">
       <ais-configure :hits-per-page.camel="12" />
 
-      <div class="grid-header d-flex flex-wrap flex-column-reverse justify-content-between align-items-center gap-3">
+      <div class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse justify-content-between align-items-center gap-3">
 
         <a class="filters-toggle" data-bs-toggle="collapse" href="#filters-toggle" role="button" aria-expanded="false"
           aria-controls="filters-toggle" @click="toggleFilters">
