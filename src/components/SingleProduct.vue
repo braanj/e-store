@@ -43,6 +43,7 @@ export default class SingleProduct extends Vue {
     text-decoration: unset;
     color: inherit;
     border-radius: unset;
+    min-width: 300px;
     transition: all 225ms;
 
     &:hover {
