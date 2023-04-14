@@ -6,4 +6,10 @@ export interface Product {
   stars: number;
   coupon?: number;
   solde?: number;
+
+  colors?: string[];
+  sizes?: (string | number)[];
+  sexe?: string;
+  sexes?: string[];
+  category?: string;
 }
