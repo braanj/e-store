@@ -1,14 +1,7 @@
 <template>
   <div class="single-product col">
-    <router-link
-      to="/"
-      class="card h-100"
-    >
-      <img
-        src="../assets/products/product.jpg"
-        class="card-img"
-        :alt="product.name"
-      />
+    <router-link :to="'/product?id=' + product.id" class="card h-100">
+      <img src="../assets/products/product.jpg" class="card-img" :alt="product.name" />
 
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
@@ -16,29 +9,13 @@
       </div>
 
       <div class="card-footer d-flex justify-content-between">
-        <div
-          class="price"
-          :class="{ 'has-solde': product.solde }"
-        >
-          <small
-            class="original"
-            :class="{ 'text-muted': product.solde }"
-            >{{ product.price }}€</small
-          >
-          <small
-            v-if="product.solde"
-            class="solde"
-            >{{ product.solde }}€</small
-          >
+        <div class="price" :class="{ 'has-solde': product.coupon }">
+          <small class="original" :class="{ 'text-muted': product.coupon }">{{ product.price }} €</small>
+          <small v-if="product.coupon" class="solde">{{ applyCoupon(product.price, product.coupon) }} €</small>
         </div>
-        <div class="stars d-flex flex-row-reverse align-items-center">
-          <i
-            v-for="(item, key) in 5"
-            :key="key"
-            :class="{ active: item <= product.stars }"
-            class="fa fa-star"
-            aria-hidden="true"
-          ></i>
+        <div class="stars d-flex align-items-center">
+          <i v-for="(item, key) in 5" :key="key" :class="{ active: item <= product.stars }" class="fa fa-star"
+            aria-hidden="true"></i>
         </div>
       </div>
     </router-link>
@@ -52,16 +29,22 @@ import { Product } from "@/models/Product";
 @Component
 export default class SingleProduct extends Vue {
   @Prop() product!: Product;
+
+  applyCoupon(price: number, coupon: number) {
+    return (price - (price * (coupon / 100))).toFixed(2)
+  }
 }
 </script>
 
 <style lang="scss">
 .single-product {
+  height: 100%;
   .card {
     text-decoration: unset;
     color: inherit;
     border-radius: unset;
     transition: all 225ms;
+
     &:hover {
       color: inherit;
       border-radius: 5px;

@@ -13,5 +13,6 @@ import { Component, Vue } from 'vue-property-decorator';
     GridLayout
   },
 })
+
 export default class HomeView extends Vue { }
 </script>
