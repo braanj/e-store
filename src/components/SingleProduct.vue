@@ -1,7 +1,14 @@
 <template>
   <div class="single-product col">
-    <router-link :to="product.link" class="card h-100">
-      <img src="../assets/products/product.jpg" class="card-img" :alt="product.name">
+    <router-link
+      to="/"
+      class="card h-100"
+    >
+      <img
+        src="../assets/products/product.jpg"
+        class="card-img"
+        :alt="product.name"
+      />
 
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
@@ -9,13 +16,29 @@
       </div>
 
       <div class="card-footer d-flex justify-content-between">
-        <div class="price" :class="{ 'has-solde': product.solde }">
-          <small class="original" :class="{'text-muted': product.solde }">{{ product.price }}€</small>
-          <small v-if="product.solde" class="solde">{{ product.solde }}€</small>
+        <div
+          class="price"
+          :class="{ 'has-solde': product.solde }"
+        >
+          <small
+            class="original"
+            :class="{ 'text-muted': product.solde }"
+            >{{ product.price }}€</small
+          >
+          <small
+            v-if="product.solde"
+            class="solde"
+            >{{ product.solde }}€</small
+          >
         </div>
         <div class="stars d-flex flex-row-reverse align-items-center">
-          <i v-for="item, key in 5" :key="key" :class="{ active: item <= product.stars }" class="fa fa-star"
-            aria-hidden="true"></i>
+          <i
+            v-for="(item, key) in 5"
+            :key="key"
+            :class="{ active: item <= product.stars }"
+            class="fa fa-star"
+            aria-hidden="true"
+          ></i>
         </div>
       </div>
     </router-link>
@@ -23,27 +46,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Vue, Component, Prop } from "vue-property-decorator";
+import { Product } from "@/models/Product";
 
 @Component
-
 export default class SingleProduct extends Vue {
-  @Prop() product!: {
-    name: string,
-    description: string,
-    link: string,
-    price: number,
-    stars: number,
-    copon: string,
-    solde: number
-  }
+  @Prop() product!: Product;
 }
 </script>
 
 <style lang="scss">
 .single-product {
-  
-  
   .card {
     text-decoration: unset;
     color: inherit;
@@ -73,7 +86,7 @@ export default class SingleProduct extends Vue {
         font-weight: 600;
         font-size: 1.25rem;
         color: inherit;
-        gap: .5rem;
+        gap: 0.5rem;
         display: flex;
         align-items: center;
 
