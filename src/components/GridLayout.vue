@@ -4,10 +4,10 @@
     <ais-instant-search :search-client="searchClient" index-name="products">
       <ais-configure :hits-per-page.camel="12" />
 
-      <div class="grid-header d-flex justify-content-between align-items-center">
+      <div class="grid-header d-flex flex-wrap flex-column-reverse justify-content-between align-items-center gap-3">
 
-        <a class="filters-toggle" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
-          aria-expanded="false" aria-controls="multiCollapseExample1" @click="toggleFilters">
+        <a class="filters-toggle" data-bs-toggle="collapse" href="#filters-toggle" role="button" aria-expanded="false"
+          aria-controls="filters-toggle" @click="toggleFilters">
           <i class="fa fa-bars" aria-hidden="true"></i>
           Filters
         </a>
@@ -17,40 +17,24 @@
 
       <div class="row bg-light py-5 border-top justify-content-center">
         <div class="filters-container">
-          <div class="collapse multi-collapse" id="multiCollapseExample1">
-            <div class="d-flex justify-content-between">
+          <div class="collapse multi-collapse mb-5" id="filters-toggle">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <span>Sort by: </span>
               <ais-sort-by :items="[
                 { value: 'products', label: 'Relevant' },
-                // { value: 'products:price:asc', label: 'Low to high price' },
-                // { value: 'products:price:desc', label: 'High to low price' },
+                { value: 'price:asc', label: 'Low to high price' },
+                { value: 'products:price:desc', label: 'High to low price' },
               ]" />
-
-              <ais-clear-refinements>
-                <span slot="resetLabel">Clear all filters</span>
-              </ais-clear-refinements>
             </div>
-            
+
+            <ais-clear-refinements>
+              <span slot="resetLabel">Clear all filters</span>
+            </ais-clear-refinements>
+
             <div class="filters">
-              <div class="filter-item">
-                <span class="title px-3 d-block py-2 border-bottom">Colors</span>
-                <div class="px-3">
-                  <!-- <ais-refinement-list attribute="colors" /> -->
-                </div>
-              </div>
-
-              <div class="filter-item">
-                <span class="title px-3 d-block py-2 border-bottom">Sizes</span>
-                <div class="px-3">
-                  <!-- <ais-refinement-list attribute="sizes" /> -->
-                </div>
-              </div>
-
-              <div class="filter-item">
-                <span class="title px-3 d-block py-2 border-bottom">Sizes</span>
-                <div class="px-3">
-                  <!-- <ais-refinement-list attribute="sizes" /> -->
-                </div>
-              </div>
+              <FilterItem v-for="(filter, key) in filters" :key="key" :title="filter">
+                <ais-refinement-list :attribute="filter" />
+              </FilterItem>
             </div>
           </div>
         </div>
@@ -76,17 +60,21 @@
 import { Component, Vue } from "vue-property-decorator";
 import SingleProduct from "./SingleProduct.vue";
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
+import FilterItem from "./FilterItem.vue";
 // import products from "@/data/products";
 
-@Component({ components: { SingleProduct } })
+@Component({ components: { SingleProduct, FilterItem } })
 
 export default class extends Vue {
   // products = products;
   searchClient = instantMeiliSearch(
     "https://ms-a09b1b93b440-2535.sfo.meilisearch.io/",
-    "bf17d6272a7f1331324eb9dfb9b504505080a4d71723ad9c7336278c33f18f72"
+    process.env.VUE_APP_DB_KEY_TOKEN
   )
+
   showFilters = true
+
+  filters = ['category', 'sizes', 'sexe', 'sexes', 'colors']
 
   toggleFilters() {
     this.showFilters = !this.showFilters
@@ -153,9 +141,10 @@ export default class extends Vue {
 .ais-Pagination-list {
   display: flex;
   list-style: none;
-  gap: 1rem;
+  gap: .5rem;
   justify-content: center;
   align-items: center;
+  padding-left: 0;
 
   .ais-Pagination-item {
     .ais-Pagination-link {
@@ -210,18 +199,32 @@ export default class extends Vue {
   border: 0;
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
+.ais-ClearRefinements-button {
+  background-color: #0d6efd;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
 .ais-ClearRefinements-button:disabled {
   display: none;
 }
 
-.filters {
-  .filter-item {
-    .title {
-      background-color: #ffffff;
-    }
+.ais-RefinementList-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ais-RefinementList-label {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  line-height: 1;
+  margin-top: .5rem;
+
+  .ais-RefinementList-count {
+    margin-left: auto;
+    color: #6c757d;
   }
 }
 </style>
