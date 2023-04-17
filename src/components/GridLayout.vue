@@ -4,7 +4,8 @@
     <ais-instant-search :search-client="searchClient" index-name="products">
       <ais-configure :hits-per-page.camel="12" />
 
-      <div class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse justify-content-between align-items-center gap-3">
+      <div
+        class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse justify-content-between align-items-center gap-3">
 
         <a class="filters-toggle" data-bs-toggle="collapse" href="#filters-toggle" role="button" aria-expanded="false"
           aria-controls="filters-toggle" @click="toggleFilters">
@@ -32,9 +33,11 @@
             </ais-clear-refinements>
 
             <div class="filters">
-              <FilterItem v-for="(filter, key) in filters" :key="key" :title="filter">
-                <ais-refinement-list :attribute="filter" />
-              </FilterItem>
+              <div class="accordion" id="filters-accordion">
+                <FilterItem v-for="(filter, key) in filters" :key="key" :index="key" :title="filter">
+                  <ais-refinement-list :attribute="filter" />
+                </FilterItem>
+              </div>
             </div>
           </div>
         </div>
@@ -206,6 +209,7 @@ export default class extends Vue {
   color: #ffffff;
   margin-bottom: 1rem;
 }
+
 .ais-ClearRefinements-button:disabled {
   display: none;
 }
@@ -217,7 +221,7 @@ export default class extends Vue {
 
 .ais-RefinementList-label {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   gap: 10px;
   line-height: 1;
   margin-top: .5rem;
