@@ -1,5 +1,5 @@
 <template>
-  <div class="accordion-item filter-item">
+  <div class="accordion-item">
     <span class="accordion-header" :id="'header_' + title">
       <button class="accordion-button" :class="{ 'collapsed': index !== 0 }" type="button" data-bs-toggle="collapse"
         :data-bs-target="'#tab_' + title" :aria-expanded="!index ? 'true' : 'false'" :aria-controls="'tab_' + title">
@@ -8,7 +8,7 @@
     </span>
 
     <div :id="'tab_' + title" class="accordion-collapse collapse" :class="{ 'show': index === 0 }"
-      :aria-labelledby="'header_' + title" data-bs-parent="#filters-accordion">
+      :aria-labelledby="'header_' + title" data-bs-parent="#accordion-wrap">
       <div class="accordion-body border-top">
         <slot></slot>
       </div>
@@ -21,11 +21,9 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
 
-export default class FilterItem extends Vue {
+export default class AccordionItem extends Vue {
   @Prop() title!: string
   @Prop() index!: number
-
-
 }
 </script>
 

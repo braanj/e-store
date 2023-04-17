@@ -5,11 +5,10 @@
       <ais-configure :hits-per-page.camel="12" />
 
       <div
-        class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse justify-content-between align-items-center gap-3">
+        class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse align-items-center justify-content-between gap-3">
 
-        <a class="filters-toggle" data-bs-toggle="collapse" href="#filters-toggle" role="button" aria-expanded="false"
-          aria-controls="filters-toggle" @click="toggleFilters">
-          <i class="fa fa-bars" aria-hidden="true"></i>
+        <a class="filters-toggle" @click="showSidebar = true">
+          <i class="fa fa-bars"></i>
           Filters
         </a>
 
@@ -17,32 +16,31 @@
       </div>
 
       <div class="row bg-light py-5 border-top justify-content-center">
-        <div class="filters-container">
-          <div class="collapse multi-collapse mb-5" id="filters-toggle">
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <span>Sort by: </span>
-              <ais-sort-by :items="[
-                { value: 'products', label: 'Relevant' },
-                { value: 'price:asc', label: 'Low to high price' },
-                { value: 'products:price:desc', label: 'High to low price' },
-              ]" />
-            </div>
 
-            <ais-clear-refinements>
-              <span slot="resetLabel">Clear all filters</span>
-            </ais-clear-refinements>
-
-            <div class="filters">
-              <div class="accordion" id="filters-accordion">
-                <FilterItem v-for="(filter, key) in filters" :key="key" :index="key" :title="filter">
-                  <ais-refinement-list :attribute="filter" />
-                </FilterItem>
-              </div>
-            </div>
+        <AccordionSidebar @close="showSidebar = false" v-if="showSidebar">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <span>Sort by: </span>
+            <ais-sort-by :items="[
+              { value: 'products', label: 'Relevant' },
+              { value: 'price:asc', label: 'Low to high price' },
+              { value: 'products:price:desc', label: 'High to low price' },
+            ]" />
           </div>
-        </div>
 
-        <div :class="{ 'col-12': showFilters, 'col': !showFilters }">
+          <ais-clear-refinements>
+            <span slot="resetLabel">Clear all filters</span>
+          </ais-clear-refinements>
+
+          <div class="filters">
+            <AccordionWrap>
+              <AccordionItem v-for="(filter, key) in filters" :key="key" :index="key" :title="filter">
+                <ais-refinement-list :attribute="filter" />
+              </AccordionItem>
+            </AccordionWrap>
+          </div>
+        </AccordionSidebar>
+
+        <div class="col">
           <ais-hits>
             <template slot="item" slot-scope="{ item }">
               <SingleProduct :product="item" />
@@ -63,49 +61,27 @@
 import { Component, Vue } from "vue-property-decorator";
 import SingleProduct from "./SingleProduct.vue";
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import FilterItem from "./FilterItem.vue";
-// import products from "@/data/products";
+import AccordionWrap from "./AccordionWrap.vue";
+import AccordionItem from './AccordionItem.vue';
+import AccordionSidebar from "./AccordionSidebar.vue";
 
-@Component({ components: { SingleProduct, FilterItem } })
+@Component({ components: { SingleProduct, AccordionItem, AccordionWrap, AccordionSidebar } })
 
 export default class extends Vue {
-  // products = products;
   searchClient = instantMeiliSearch(
     "https://ms-a09b1b93b440-2535.sfo.meilisearch.io/",
     process.env.VUE_APP_DB_KEY_TOKEN
   )
 
-  showFilters = true
-
   filters = ['category', 'sizes', 'sexe', 'sexes', 'colors']
 
-  toggleFilters() {
-    this.showFilters = !this.showFilters
-  }
+  showSidebar = false
 }
 </script>
 
 <style lang="scss">
 .grid-header {
   padding-bottom: 1rem;
-
-  .nav {
-    .nav-link {
-      color: inherit;
-      opacity: 0.5;
-      font-weight: 600;
-
-      &:hover,
-      &.active {
-        opacity: 1;
-      }
-
-      &:first-of-type,
-      &:last-of-type {
-        padding-left: 0;
-      }
-    }
-  }
 
   .filters-toggle {
     text-decoration: unset;
@@ -121,10 +97,6 @@ export default class extends Vue {
   .btn {
     border: 1px solid var(--border-color);
   }
-}
-
-.filters-container {
-  width: 300px;
 }
 
 .ais-Hits-list {
