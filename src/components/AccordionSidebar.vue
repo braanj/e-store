@@ -1,37 +1,59 @@
 <template>
-  <transition appear enter-active-class="animate__fadeInLeft" leave-active-class="animate__fadeOutRight">
-    <div class="animate__animated filters-container" id="filters-toggle"
-      :class="{ mobile: config.isMobile }">
-      <div class="content">
-        <button class="close">
+  <div
+    class="accordion-sidebar"
+    :class="{ mobile: config.isMobile }"
+  >
+    <div
+      class="back"
+      @click="close"
+    ></div>
+    <transition
+      appear
+      enter-active-class="animate__fadeInLeft"
+      leave-active-class="animate__fadeOutLeft"
+      ><div
+        v-if="showContent"
+        class="content animate__animated"
+      >
+        <button
+          class="close"
+          @click="close"
+        >
           <i class="fa fa-times"></i>
         </button>
-        <!-- <slot></slot> -->
+        <AccordionFilter />
       </div>
-    </div>
-  </transition>
+    </transition>
+  </div>
 </template>
 
 <script lang="ts">
-import { IConfig } from '@/store/types/Config';
-import { Vue, Component } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
-import 'animate.css';
+import { IConfig } from "@/store/types/Config";
+import { Vue, Component } from "vue-property-decorator";
+import { Getter } from "vuex-class";
+import "animate.css";
+import AccordionFilter from "./AccordionFilter.vue";
 
-@Component
+@Component({ components: { AccordionFilter } })
 export default class AccordionSidebar extends Vue {
-  @Getter('get', { namespace: 'config' }) config!: IConfig
+  @Getter("get", { namespace: "config" }) config!: IConfig;
 
+  showContent = true;
   close() {
-    console.log('Test');
-    this.$emit('close')
+    this.showContent = false;
+    setTimeout(() => this.$emit("close"), 500);
   }
 }
 </script>
 
 <style lang="scss">
-.filters-container {
-  width: 300px;
+.accordion-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
 
   .close {
     display: none;
@@ -42,33 +64,24 @@ export default class AccordionSidebar extends Vue {
     border: none;
   }
 
-  &.mobile {
+  .back {
+    background-color: #7b7b7b50;
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
-    z-index: 99;
-    background-color: #7b7b7b50;
-    display: flex;
-    padding: 0;
-    width: 100%;
-    display: none;
+    left: 0;
+  }
 
-    &.show {
-      display: block;
-    }
-
-    .content {
-      position: relative;
-      height: 100vh;
-      overflow: auto;
-      width: 300px;
-      padding: 1rem;
-      padding-top: 4rem;
-      background-color: #ffffff;
-    }
-
-    .close {
-      display: block;
-    }
+  .content {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+    width: 300px;
+    max-width: 90%;
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    animation-duration: 0.5s;
   }
 }
 </style>
