@@ -1,18 +1,16 @@
 <template>
-  <div class="filter-item">
-    <a class="title px-3 py-2 border-bottom" data-bs-toggle="collapse" :href="'#tab_' + title" role="button"
-      aria-expanded="false" :aria-controls="'tab_' + title">
-      <span>
-        {{ title }}
-      </span>
-      <i class="fa fa-chevron-down" aria-hidden="true"></i>
-    </a>
+  <div class="accordion-item filter-item">
+    <span class="accordion-header" :id="'header_' + title">
+      <button class="accordion-button" :class="{ 'collapsed': index !== 0 }" type="button" data-bs-toggle="collapse"
+        :data-bs-target="'#tab_' + title" :aria-expanded="!index ? 'true' : 'false'" :aria-controls="'tab_' + title">
+        <span>{{ title }}</span>
+      </button>
+    </span>
 
-    <div class="row">
-      <div class="col">
-        <div class="border-bottom filters-list p-3 collapse multi-collapse" :id="'tab_' + title">
-          <slot></slot>
-        </div>
+    <div :id="'tab_' + title" class="accordion-collapse collapse" :class="{ 'show': index === 0 }"
+      :aria-labelledby="'header_' + title" data-bs-parent="#filters-accordion">
+      <div class="accordion-body border-top">
+        <slot></slot>
       </div>
     </div>
   </div>
@@ -25,31 +23,31 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 
 export default class FilterItem extends Vue {
   @Prop() title!: string
+  @Prop() index!: number
+
+
 }
 </script>
 
 <style lang="scss">
-.filter-item {
-  .title {
-    background-color: #ffffff;
-    color: inherit;
-    text-decoration: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    
-    span::first-letter {
-      text-transform: uppercase;
-    }
+.accordion-item {
+  .accordion-header {
+    .accordion-button {
+      &:focus {
+        border-color: unset;
+        outline: 0;
+        box-shadow: none;
+      }
 
-    i {
-      font-size: .75rem;
-    }
-  }
+      &:not(.collapsed) {
+        background-color: transparent;
+        color: inherit;
+      }
 
-  .filters-list {
-    background-color: #ffffff;
+      span::first-letter {
+        text-transform: uppercase;
+      }
+    }
   }
 }
 </style>
