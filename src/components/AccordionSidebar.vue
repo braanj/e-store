@@ -1,6 +1,6 @@
 <template>
   <div
-    class="accordion-sidebar"
+    class="accordion-sidebar p-0"
     :class="{ mobile: config.isMobile }"
   >
     <div

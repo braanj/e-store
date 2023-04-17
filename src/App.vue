@@ -21,7 +21,7 @@ export default class App extends Vue {
   @Action("setMobile", { namespace: "config" }) setMobile!: (param: boolean) => void;
 
   onResize() {
-    this.setMobile(window.innerWidth <= 662)
+    this.setMobile(window.innerWidth <= 768)
   }
 
   mounted(): void {

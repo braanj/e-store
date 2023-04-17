@@ -1,36 +1,28 @@
 <template>
   <div class="container py-5">
-    <ais-instant-search
-      :search-client="searchClient"
-      index-name="products"
-    >
+    <ais-instant-search :search-client="searchClient" index-name="products">
       <ais-configure :hits-per-page.camel="12" />
 
       <div
-        class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse align-items-center justify-content-between gap-3"
-      >
-        <button @click="showSidebar = true">sidenar</button>
-        <a
-          class="filters-toggle"
-          @click="showSidebar = true"
-        >
+        class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse align-items-center justify-content-between gap-3">
+        <button class="toggle-filters" @click="showSidebar = true">
           <i class="fa fa-bars"></i>
           Filters
-        </a>
+        </button>
 
-        <ais-search-box
-          placeholder="Search here…"
-          class="searchbox"
-        ></ais-search-box>
+        <ais-search-box placeholder="Search here…" class="searchbox"></ais-search-box>
       </div>
 
       <div class="row bg-light py-5 border-top justify-content-center">
+        
+        <AccordionFilter v-if="!config.isMobile && showSidebar === true" />
+        <AccordionSidebar v-else-if="showSidebar" @close="showSidebar = false">
+        </AccordionSidebar>
+
+
         <div class="col">
           <ais-hits>
-            <template
-              slot="item"
-              slot-scope="{ item }"
-            >
+            <template slot="item" slot-scope="{ item }">
               <SingleProduct :product="item" />
             </template>
           </ais-hits>
@@ -41,39 +33,6 @@
         </div>
       </div>
     </ais-instant-search>
-
-    <AccordionSidebar
-      v-if="showSidebar"
-      @close="showSidebar = false"
-    >
-      <div class="d-flex align-items-center gap-3 mb-3">
-        <span>Sort by: </span>
-        <ais-sort-by
-          :items="[
-            { value: 'products', label: 'Relevant' },
-            { value: 'price:asc', label: 'Low to high price' },
-            { value: 'products:price:desc', label: 'High to low price' },
-          ]"
-        />
-      </div>
-
-      <ais-clear-refinements>
-        <span slot="resetLabel">Clear all filters</span>
-      </ais-clear-refinements>
-
-      <div class="filters">
-        <AccordionWrap>
-          <AccordionItem
-            v-for="(filter, key) in filters"
-            :key="key"
-            :index="key"
-            :title="filter"
-          >
-            <ais-refinement-list :attribute="filter" />
-          </AccordionItem>
-        </AccordionWrap>
-      </div>
-    </AccordionSidebar>
   </div>
 </template>
 
@@ -81,12 +40,14 @@
 import { Component, Vue } from "vue-property-decorator";
 import SingleProduct from "./SingleProduct.vue";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
-import AccordionWrap from "./AccordionWrap.vue";
-import AccordionItem from "./AccordionItem.vue";
+
 import AccordionSidebar from "./AccordionSidebar.vue";
+import { IConfig } from "@/store/types/Config";
+import { Getter } from "vuex-class";
+import AccordionFilter from "./AccordionFilter.vue";
 
 @Component({
-  components: { SingleProduct, AccordionItem, AccordionWrap, AccordionSidebar },
+  components: { SingleProduct, AccordionSidebar, AccordionFilter },
 })
 export default class extends Vue {
   searchClient = instantMeiliSearch(
@@ -94,9 +55,9 @@ export default class extends Vue {
     process.env.VUE_APP_DB_KEY_TOKEN
   );
 
-  filters = ["category", "sizes", "sexe", "sexes", "colors"];
-
   showSidebar = false;
+
+  @Getter("get", { namespace: "config" }) config!: IConfig;
 }
 </script>
 
@@ -104,13 +65,9 @@ export default class extends Vue {
 .grid-header {
   padding-bottom: 1rem;
 
-  .filters-toggle {
-    text-decoration: unset;
-    color: inherit;
-
-    &::after {
-      content: unset;
-    }
+  .toggle-filters {
+    background-color: transparent;
+    border: unset;
   }
 }
 
