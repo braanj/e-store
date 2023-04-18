@@ -11,3 +11,11 @@ import { Vue, Component } from 'vue-property-decorator';
 
 export default class AccordionWrap extends Vue {}
 </script>
+
+<style lang="scss">
+.accordion {
+  box-shadow: var(--body-bg-color) 0px 4px 12px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+</style>

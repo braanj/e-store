@@ -50,7 +50,8 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .navbar {
-  border-bottom: 1px solid var(--border-color);
+  background-color: var(--element-bg-color);
+  box-shadow: var(--body-bg-color) 0px 4px 12px;
   .nav-link {
     text-transform: uppercase;
     font-size: 1rem;

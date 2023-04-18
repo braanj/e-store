@@ -3,24 +3,22 @@
     <ais-instant-search :search-client="searchClient" index-name="products">
       <ais-configure :hits-per-page.camel="12" />
 
-      <div
-        class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse align-items-center justify-content-between gap-3">
-        <button class="toggle-filters" @click="showSidebar = true">
-          <i class="fa fa-bars"></i>
-          Filters
-        </button>
+      <div class="row justify-content-center">
 
-        <ais-search-box placeholder="Search here…" class="searchbox"></ais-search-box>
-      </div>
-
-      <div class="row bg-light py-5 border-top justify-content-center">
-        
-        <AccordionFilter v-if="!config.isMobile" />
+        <AccordionFilter v-if="!config.isTablette && !config.isMobile" />
         <AccordionSidebar v-else-if="showSidebar" @close="showSidebar = false">
         </AccordionSidebar>
 
-
         <div class="col">
+          <div class="grid-header d-flex align-items-center justify-content-center gap-3 pb-4 flex-wrap">
+            <button class="toggle-filters" v-if="config.isTablette || config.isMobile" @click="showSidebar = true">
+              <i class="fa fa-bars"></i>
+              Filters
+            </button>
+
+            <ais-search-box placeholder="Search here…" class="searchbox"></ais-search-box>
+          </div>
+
           <ais-hits>
             <template slot="item" slot-scope="{ item }">
               <SingleProduct :product="item" />
@@ -80,15 +78,20 @@ export default class extends Vue {
 .ais-Hits-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
   padding-left: 0;
-  justify-content: center;
+  justify-content: start;
+}
+
+@media screen and (max-width: 992px) {
+  .ais-Hits-list {
+    justify-content: center;
+  }
 }
 
 .ais-Hits-item {
   list-style-type: none;
-  min-width: 300px;
-  max-width: 300px;
+  width: 300px;
 }
 
 .ais-Pagination-list {
@@ -103,18 +106,23 @@ export default class extends Vue {
     .ais-Pagination-link {
       padding: 0.5rem 1rem 0.75rem;
       background-color: #ffffff;
+      color: #82858d;
       border-radius: 5px;
       display: flex;
       align-items: center;
       line-height: 1;
       text-decoration: none;
+      &:hover {
+        color: #000;
+      }
     }
 
     &.ais-Pagination-item--disabled,
     &.ais-Pagination-item--selected {
       .ais-Pagination-link {
         background-color: transparent;
-        color: inherit;
+        color: #82858d;
+        cursor: initial;
       }
     }
   }
@@ -128,6 +136,12 @@ export default class extends Vue {
     padding: 0.25rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: 5px;
+
+    &:focus, 
+    &:active {
+      border: unset;
+      box-shadow: unset;
+    }
   }
 
   .ais-SearchBox-reset,
@@ -142,43 +156,6 @@ export default class extends Vue {
       max-width: 0.5rem;
       max-height: 0.5rem;
     }
-  }
-}
-
-.ais-ClearRefinements-button,
-.ais-SortBy-select {
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  border: 0;
-  display: flex;
-  align-items: center;
-}
-
-.ais-ClearRefinements-button {
-  background-color: #0d6efd;
-  color: #ffffff;
-  margin-bottom: 1rem;
-}
-
-.ais-ClearRefinements-button:disabled {
-  display: none;
-}
-
-.ais-RefinementList-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.ais-RefinementList-label {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  line-height: 1;
-  margin-top: 0.5rem;
-
-  .ais-RefinementList-count {
-    margin-left: auto;
-    color: #6c757d;
   }
 }
 </style>
