@@ -101,5 +101,8 @@ export default class FooterNav extends Vue { }
     }
   }
 
+  .list-group-item {
+    background-color: transparent;
+  }
 }
 </style>

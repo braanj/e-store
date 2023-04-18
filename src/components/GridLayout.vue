@@ -128,34 +128,32 @@ export default class extends Vue {
   }
 }
 
+.ais-SearchBox {
+  width: 100%;
+  display: flex;
+}
+
 .ais-SearchBox-form {
   display: flex;
+  width: 60%;
   gap: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: .6em;
+  background-color: var(--element-bg-color);
 
   .ais-SearchBox-input {
-    padding: 0.25rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-
-    &:focus, 
-    &:active {
-      border: unset;
-      box-shadow: unset;
-    }
+    background-color: unset;
+    border: none !important;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    padding: 1rem 1.5rem;
   }
+  
 
   .ais-SearchBox-reset,
   .ais-SearchBox-submit {
-    padding: 1rem;
-    border-radius: 5px;
-    border: 0;
-    display: flex;
-    align-items: center;
-
-    svg {
-      max-width: 0.5rem;
-      max-height: 0.5rem;
-    }
+    display: none;
   }
 }
 </style>
