@@ -15,22 +15,24 @@
         </AccordionSidebar>
 
         <div class="col">
-          <div
-            class="grid-header d-flex align-items-center justify-content-center gap-3 pb-4 flex-wrap"
-          >
+          <div class="grid-header">
             <button
               class="toggle-filters"
               v-if="config.isTablette || config.isMobile"
               @click="showSidebar = true"
             >
-              <i class="fa fa-bars"></i>
-              Filters
+              <i
+                class="fi fi-br-settings-sliders"
+                style="line-height: 1"
+              ></i>
+              filter
             </button>
 
             <ais-search-box
               placeholder="Search here…"
               class="searchbox"
-            ></ais-search-box>
+            >
+            </ais-search-box>
           </div>
 
           <ais-hits>
@@ -78,11 +80,32 @@ export default class extends Vue {
 
 <style lang="scss">
 .grid-header {
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 552px;
+  max-width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 0.6em;
+  background-color: var(--element-bg-color);
+  padding-left: 15px;
+  padding-right: 15px;
 
   .toggle-filters {
     background-color: transparent;
-    border: unset;
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ebebeb;
+    border-radius: 16em;
+    padding: 8px 15px;
+  }
+
+  @media screen and (max-width: 882px) {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -97,12 +120,10 @@ export default class extends Vue {
   flex-wrap: wrap;
   gap: 2rem;
   padding-left: 0;
-  justify-content: start;
-}
+  justify-content: flex-start !important;
 
-@media screen and (max-width: 992px) {
-  .ais-Hits-list {
-    justify-content: center;
+  @media screen and (max-width: 882px) {
+    justify-content: center !important;
   }
 }
 
@@ -152,11 +173,9 @@ export default class extends Vue {
 
 .ais-SearchBox-form {
   display: flex;
-  width: 60%;
+  width: 100%;
   gap: 4px;
-  border: 1px solid var(--border-color);
   border-radius: 0.6em;
-  background-color: var(--element-bg-color);
 
   .ais-SearchBox-input {
     background-color: unset;
@@ -164,7 +183,7 @@ export default class extends Vue {
     width: 100%;
     height: 100%;
     outline: none;
-    padding: 1rem 1.5rem;
+    padding: 1rem 0.5rem;
   }
 
   .ais-SearchBox-reset,
