@@ -94,13 +94,6 @@ export default class SingleProduct extends Vue {
       border-top: 2px solid var(--body-bg-color);
     }
 
-    .favorites {
-      padding: 0.5rem 0.75rem;
-      border-radius: 5px;
-      background-color: var(--body-bg-color);
-      border: unset;
-    }
-
     .card-title {
       font-size: 1.25rem;
       font-weight: 600;
@@ -148,5 +141,12 @@ export default class SingleProduct extends Vue {
       // }
     }
   }
+}
+
+.favorites {
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  background-color: var(--body-bg-color);
+  border: unset;
 }
 </style>

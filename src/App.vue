@@ -36,6 +36,8 @@ export default class App extends Vue {
   --border-color: rgba(0, 0, 0, .125);
   --body-bg-color: #f3f3f6;
   --element-bg-color: #fcfcfc;
+  --item-color: #82858d;
+  --gray-bg-color: #e7e7eb;
 }
 
 html,

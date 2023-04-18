@@ -65,7 +65,7 @@ export default class AccordionItem extends Vue {
   width: 100%;
   justify-content: center;
   margin-bottom: 1rem;
-  background-color: #e7e7eb;
+  background-color: var(--gray-bg-color);
   box-shadow: var(--body-bg-color) 0px 4px 12px;
 }
 
@@ -80,7 +80,7 @@ export default class AccordionItem extends Vue {
 
 
 .ais-RefinementList-item {
-  color: #82858d;
+  color: var(--item-colors);
   font-size: 1.1rem;
   &:hover,
   &.ais-RefinementList-item--selected {
