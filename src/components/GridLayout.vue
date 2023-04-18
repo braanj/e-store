@@ -1,26 +1,43 @@
 <template>
   <div class="container py-5">
-    <ais-instant-search :search-client="searchClient" index-name="products">
+    <ais-instant-search
+      :search-client="searchClient"
+      index-name="products"
+    >
       <ais-configure :hits-per-page.camel="12" />
 
       <div class="row justify-content-center">
-
         <AccordionFilter v-if="!config.isTablette && !config.isMobile" />
-        <AccordionSidebar v-else-if="showSidebar" @close="showSidebar = false">
+        <AccordionSidebar
+          v-else-if="showSidebar"
+          @close="showSidebar = false"
+        >
         </AccordionSidebar>
 
         <div class="col">
-          <div class="grid-header d-flex align-items-center justify-content-center gap-3 pb-4 flex-wrap">
-            <button class="toggle-filters" v-if="config.isTablette || config.isMobile" @click="showSidebar = true">
+          <div
+            class="grid-header d-flex align-items-center justify-content-center gap-3 pb-4 flex-wrap"
+          >
+            <button
+              class="toggle-filters"
+              v-if="config.isTablette || config.isMobile"
+              @click="showSidebar = true"
+            >
               <i class="fa fa-bars"></i>
               Filters
             </button>
 
-            <ais-search-box placeholder="Search here…" class="searchbox"></ais-search-box>
+            <ais-search-box
+              placeholder="Search here…"
+              class="searchbox"
+            ></ais-search-box>
           </div>
 
           <ais-hits>
-            <template slot="item" slot-scope="{ item }">
+            <template
+              slot="item"
+              slot-scope="{ item }"
+            >
               <SingleProduct :product="item" />
             </template>
           </ais-hits>
@@ -138,7 +155,7 @@ export default class extends Vue {
   width: 60%;
   gap: 4px;
   border: 1px solid var(--border-color);
-  border-radius: .6em;
+  border-radius: 0.6em;
   background-color: var(--element-bg-color);
 
   .ais-SearchBox-input {
@@ -149,7 +166,6 @@ export default class extends Vue {
     outline: none;
     padding: 1rem 1.5rem;
   }
-  
 
   .ais-SearchBox-reset,
   .ais-SearchBox-submit {

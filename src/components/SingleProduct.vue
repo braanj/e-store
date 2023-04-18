@@ -1,19 +1,43 @@
 <template>
   <div class="single-product col">
-    <router-link :to="'/product?id=' + product.id" class="card h-100">
-      <img src="../assets/products/product-gray.png" class="card-img" :alt="product.name" />
+    <router-link
+      :to="'/product?id=' + product.id"
+      class="card h-100"
+    >
+      <img
+        src="../assets/products/product-gray.png"
+        class="card-img"
+        :alt="product.name"
+      />
 
       <div class="card-body pt-4 px-4 pb-0">
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <h5 class="card-title">{{ product.name }}</h5>
-            <div class="price" :class="{ 'has-solde': product.coupon }">
+            <div
+              class="price"
+              :class="{ 'has-solde': product.coupon }"
+            >
               <small class="original">{{ product.price }} €</small>
-              <small v-if="product.coupon" class="solde">{{ applyCoupon(product.price, product.coupon) }} €</small>
+              <small
+                v-if="product.coupon"
+                class="solde"
+                >{{ applyCoupon(product.price, product.coupon) }} €</small
+              >
             </div>
           </div>
-          <button class="favorites">
-            <i class="fa fa-heart-o"></i>
+          <button
+            class="favorites"
+            @click.prevent="setFavorites(product.id)"
+          >
+            <i
+              v-if="!store.favorites.includes(product.id)"
+              class="fa fa-heart-o"
+            ></i>
+            <i
+              v-else
+              class="fa fa-solid fa-heart"
+            ></i>
           </button>
         </div>
       </div>
@@ -28,13 +52,19 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { Product } from "@/models/Product";
+import { Action, Getter } from "vuex-class";
+import { IProduct } from "@/store/types/Product.js";
 
 @Component
 export default class SingleProduct extends Vue {
   @Prop() product!: Product;
+  @Getter("get", { namespace: "product" }) store!: IProduct;
+  @Action("setFavorites", { namespace: "product" }) setFavorites!: (
+    param: string
+  ) => void;
 
   applyCoupon(price: number, coupon: number) {
-    return (price - (price * (coupon / 100))).toFixed(2)
+    return (price - price * (coupon / 100)).toFixed(2);
   }
 }
 </script>
@@ -65,7 +95,7 @@ export default class SingleProduct extends Vue {
     }
 
     .favorites {
-      padding: .5rem .75rem;
+      padding: 0.5rem 0.75rem;
       border-radius: 5px;
       background-color: var(--body-bg-color);
       border: unset;
@@ -107,7 +137,6 @@ export default class SingleProduct extends Vue {
         }
       }
     }
-
 
     &:hover {
       color: inherit;
