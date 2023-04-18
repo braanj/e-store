@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # Docs files
 /docs
+yarn.lock

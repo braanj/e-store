@@ -1,48 +1,26 @@
 <template>
   <div class="container py-5">
-
     <ais-instant-search :search-client="searchClient" index-name="products">
       <ais-configure :hits-per-page.camel="12" />
 
       <div
-        class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse justify-content-between align-items-center gap-3">
-
-        <a class="filters-toggle" data-bs-toggle="collapse" href="#filters-toggle" role="button" aria-expanded="false"
-          aria-controls="filters-toggle" @click="toggleFilters">
-          <i class="fa fa-bars" aria-hidden="true"></i>
+        class="grid-header d-flex flex-wrap flex-md-nowrap flex-wrap-reverse align-items-center justify-content-between gap-3">
+        <button class="toggle-filters" @click="showSidebar = true">
+          <i class="fa fa-bars"></i>
           Filters
-        </a>
+        </button>
 
         <ais-search-box placeholder="Search here…" class="searchbox"></ais-search-box>
       </div>
 
       <div class="row bg-light py-5 border-top justify-content-center">
-        <div class="filters-container">
-          <div class="collapse multi-collapse mb-5" id="filters-toggle">
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <span>Sort by: </span>
-              <ais-sort-by :items="[
-                { value: 'products', label: 'Relevant' },
-                { value: 'price:asc', label: 'Low to high price' },
-                { value: 'products:price:desc', label: 'High to low price' },
-              ]" />
-            </div>
+        
+        <AccordionFilter v-if="!config.isMobile" />
+        <AccordionSidebar v-else-if="showSidebar" @close="showSidebar = false">
+        </AccordionSidebar>
 
-            <ais-clear-refinements>
-              <span slot="resetLabel">Clear all filters</span>
-            </ais-clear-refinements>
 
-            <div class="filters">
-              <div class="accordion" id="filters-accordion">
-                <FilterItem v-for="(filter, key) in filters" :key="key" :index="key" :title="filter">
-                  <ais-refinement-list :attribute="filter" />
-                </FilterItem>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div :class="{ 'col-12': showFilters, 'col': !showFilters }">
+        <div class="col">
           <ais-hits>
             <template slot="item" slot-scope="{ item }">
               <SingleProduct :product="item" />
@@ -54,7 +32,6 @@
           <ais-pagination />
         </div>
       </div>
-
     </ais-instant-search>
   </div>
 </template>
@@ -62,26 +39,25 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import SingleProduct from "./SingleProduct.vue";
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import FilterItem from "./FilterItem.vue";
-// import products from "@/data/products";
+import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
-@Component({ components: { SingleProduct, FilterItem } })
+import AccordionSidebar from "./AccordionSidebar.vue";
+import { IConfig } from "@/store/types/Config";
+import { Getter } from "vuex-class";
+import AccordionFilter from "./AccordionFilter.vue";
 
+@Component({
+  components: { SingleProduct, AccordionSidebar, AccordionFilter },
+})
 export default class extends Vue {
-  // products = products;
   searchClient = instantMeiliSearch(
     "https://ms-a09b1b93b440-2535.sfo.meilisearch.io/",
     process.env.VUE_APP_DB_KEY_TOKEN
-  )
+  );
 
-  showFilters = true
+  showSidebar = false;
 
-  filters = ['category', 'sizes', 'sexe', 'sexes', 'colors']
-
-  toggleFilters() {
-    this.showFilters = !this.showFilters
-  }
+  @Getter("get", { namespace: "config" }) config!: IConfig;
 }
 </script>
 
@@ -89,31 +65,9 @@ export default class extends Vue {
 .grid-header {
   padding-bottom: 1rem;
 
-  .nav {
-    .nav-link {
-      color: inherit;
-      opacity: 0.5;
-      font-weight: 600;
-
-      &:hover,
-      &.active {
-        opacity: 1;
-      }
-
-      &:first-of-type,
-      &:last-of-type {
-        padding-left: 0;
-      }
-    }
-  }
-
-  .filters-toggle {
-    text-decoration: unset;
-    color: inherit;
-
-    &::after {
-      content: unset;
-    }
+  .toggle-filters {
+    background-color: transparent;
+    border: unset;
   }
 }
 
@@ -121,10 +75,6 @@ export default class extends Vue {
   .btn {
     border: 1px solid var(--border-color);
   }
-}
-
-.filters-container {
-  width: 300px;
 }
 
 .ais-Hits-list {
@@ -144,14 +94,14 @@ export default class extends Vue {
 .ais-Pagination-list {
   display: flex;
   list-style: none;
-  gap: .5rem;
+  gap: 0.5rem;
   justify-content: center;
   align-items: center;
   padding-left: 0;
 
   .ais-Pagination-item {
     .ais-Pagination-link {
-      padding: .5rem 1rem .75rem;
+      padding: 0.5rem 1rem 0.75rem;
       background-color: #ffffff;
       border-radius: 5px;
       display: flex;
@@ -175,7 +125,7 @@ export default class extends Vue {
   gap: 4px;
 
   .ais-SearchBox-input {
-    padding: .25rem 1rem;
+    padding: 0.25rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: 5px;
   }
@@ -189,15 +139,15 @@ export default class extends Vue {
     align-items: center;
 
     svg {
-      max-width: .5rem;
-      max-height: .5rem;
+      max-width: 0.5rem;
+      max-height: 0.5rem;
     }
   }
 }
 
 .ais-ClearRefinements-button,
 .ais-SortBy-select {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 5px;
   border: 0;
   display: flex;
@@ -224,7 +174,7 @@ export default class extends Vue {
   align-items: flex-end;
   gap: 10px;
   line-height: 1;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 
   .ais-RefinementList-count {
     margin-left: auto;
