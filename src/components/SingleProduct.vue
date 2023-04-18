@@ -1,22 +1,25 @@
 <template>
   <div class="single-product col">
     <router-link :to="'/product?id=' + product.id" class="card h-100">
-      <img src="../assets/products/product.jpg" class="card-img" :alt="product.name" />
+      <img src="../assets/products/product-gray.png" class="card-img" :alt="product.name" />
 
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">{{ product.description }}</p>
+      <div class="card-body pt-4 px-4 pb-0">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="card-title">{{ product.name }}</h5>
+            <div class="price" :class="{ 'has-solde': product.coupon }">
+              <small class="original">{{ product.price }} €</small>
+              <small v-if="product.coupon" class="solde">{{ applyCoupon(product.price, product.coupon) }} €</small>
+            </div>
+          </div>
+          <button class="favorites">
+            <i class="fa fa-heart-o"></i>
+          </button>
+        </div>
       </div>
 
-      <div class="card-footer d-flex justify-content-between">
-        <div class="price" :class="{ 'has-solde': product.coupon }">
-          <small class="original" :class="{ 'text-muted': product.coupon }">{{ product.price }} €</small>
-          <small v-if="product.coupon" class="solde">{{ applyCoupon(product.price, product.coupon) }} €</small>
-        </div>
-        <div class="stars d-flex align-items-center">
-          <i v-for="(item, key) in 5" :key="key" :class="{ active: item <= product.stars }" class="fa fa-star"
-            aria-hidden="true"></i>
-        </div>
+      <div class="card-footer px-4">
+        <p class="card-text">{{ product.description }}</p>
       </div>
     </router-link>
   </div>
@@ -39,21 +42,33 @@ export default class SingleProduct extends Vue {
 <style lang="scss">
 .single-product {
   height: 100%;
+  position: relative;
+
   .card {
     text-decoration: unset;
+    border-radius: 5px;
+    border: unset;
+    width: 300px;
+    background-color: var(--element-bg-color);
     color: inherit;
-    border-radius: unset;
-    min-width: 300px;
-    transition: all 225ms;
-
-    &:hover {
-      color: inherit;
-      border-radius: 5px;
-      overflow: hidden;
-    }
+    box-shadow: var(--body-bg-color) 0px 4px 12px;
+    padding-bottom: 1.5rem;
 
     .card-img {
       border-radius: unset;
+      max-width: 250px;
+      margin: auto;
+    }
+
+    .card-body {
+      border-top: 2px solid var(--body-bg-color);
+    }
+
+    .favorites {
+      padding: .5rem .75rem;
+      border-radius: 5px;
+      background-color: var(--body-bg-color);
+      border: unset;
     }
 
     .card-title {
@@ -64,33 +79,44 @@ export default class SingleProduct extends Vue {
     .card-footer {
       background-color: transparent;
       border-top: unset;
-      padding-bottom: 1.5rem;
+      display: none;
+    }
 
-      .price {
-        font-weight: 600;
-        font-size: 1.25rem;
-        color: inherit;
-        gap: 0.5rem;
-        display: flex;
-        align-items: center;
+    .price {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #94979f;
+      gap: 0.5rem;
+      display: flex;
+      align-items: end;
 
-        &.has-solde {
-          .original {
-            text-decoration: line-through;
-            font-size: 1rem;
-          }
+      &.has-solde {
+        .original {
+          text-decoration: line-through;
+          font-size: 1rem;
         }
       }
+    }
 
-      .stars {
-        i {
-          color: #e9ecef;
+    .stars {
+      i {
+        color: #e9ecef;
 
-          &.active {
-            color: #ffc107;
-          }
+        &.active {
+          color: #ffc107;
         }
       }
+    }
+
+
+    &:hover {
+      color: inherit;
+      border-radius: 5px;
+      overflow: hidden;
+
+      // .card-footer {
+      //   display: block;
+      // }
     }
   }
 }

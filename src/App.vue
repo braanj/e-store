@@ -18,10 +18,10 @@ import { IConfig } from '@/store/types/Config'
 export default class App extends Vue {
 
   @Getter('get', { namespace: 'config' }) config!: IConfig
-  @Action("setMobile", { namespace: "config" }) setMobile!: (param: boolean) => void;
+  @Action("setMobile", { namespace: "config" }) setMobile!: (param: number) => void;
 
   onResize() {
-    this.setMobile(window.innerWidth <= 768)
+    this.setMobile(window.innerWidth)
   }
 
   mounted(): void {
@@ -34,23 +34,17 @@ export default class App extends Vue {
 <style lang="scss">
 :root {
   --border-color: rgba(0, 0, 0, .125);
+  --body-bg-color: #f3f3f6;
+  --element-bg-color: #fcfcfc;
 }
 
 html,
 body {
   font-size: 16px;
+  background-color: var(--body-bg-color);
 }
 
 #app {
   position: relative;
-}
-
-.backdrop {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #efefef;
-  z-index: 9;
-  top: 0;
 }
 </style>
