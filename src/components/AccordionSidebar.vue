@@ -56,12 +56,12 @@ export default class AccordionSidebar extends Vue {
   height: 100%;
 
   .close {
-    display: none;
     position: absolute;
     top: 10px;
     right: 10px;
     background-color: transparent;
     border: none;
+    color: #21252960;
   }
 
   .back {

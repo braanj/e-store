@@ -15,7 +15,7 @@
 
       <div class="row bg-light py-5 border-top justify-content-center">
         
-        <AccordionFilter v-if="!config.isMobile && showSidebar === true" />
+        <AccordionFilter v-if="!config.isMobile" />
         <AccordionSidebar v-else-if="showSidebar" @close="showSidebar = false">
         </AccordionSidebar>
 

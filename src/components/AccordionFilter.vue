@@ -1,5 +1,5 @@
 <template>
-  <div class="filters-container p-3">
+  <div class="filters-container px-3">
     <div class="d-flex align-items-center gap-3 mb-3">
       <span>Sort by: </span>
       <ais-sort-by :items="[
@@ -39,5 +39,11 @@ export default class AccordionFilter extends Vue {
 <style lang="scss">
 .filters-container {
   width: 300px;
+}
+
+@media screen and (max-width: 768px) {
+  .filters-container {
+    padding-top: 3rem !important;
+  }
 }
 </style>
