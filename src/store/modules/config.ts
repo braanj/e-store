@@ -6,7 +6,8 @@ const namespaced = true;
 
 const state: IConfigState = {
   config: {
-    isMobile: false
+    isMobile: false,
+    isTablette: false
   },
 };
 
@@ -17,8 +18,14 @@ const getters: GetterTree<IConfigState, RootState> = {
 };
 
 const mutations: MutationTree<IConfigState> = {
-  SET_MOBILE(st: IConfigState, payload): void {
-    st.config.isMobile = payload
+  SET_MOBILE(st: IConfigState, payload: number) {
+    st.config.isMobile = false
+    st.config.isTablette = false
+    if (payload <= 768) {
+      st.config.isMobile = true
+    } else if (payload <= 992) {
+      st.config.isTablette = true
+    }
   },
 };
 
