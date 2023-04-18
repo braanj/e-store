@@ -48,6 +48,9 @@ export default class AccordionSidebar extends Vue {
 
 <style lang="scss">
 .accordion-sidebar {
+  .accordion {
+    box-shadow: unset !important;
+  }
   position: fixed;
   top: 0;
   left: 0;
@@ -77,7 +80,7 @@ export default class AccordionSidebar extends Vue {
     position: relative;
     height: 100%;
     overflow: auto;
-    width: 300px;
+    width: 350px;
     max-width: 90%;
     background-color: #fff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
