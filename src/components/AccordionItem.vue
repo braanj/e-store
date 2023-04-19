@@ -66,7 +66,7 @@ export default class AccordionItem extends Vue {
   justify-content: center;
   margin-bottom: 1rem;
   background-color: var(--gray-bg-color);
-  box-shadow: var(--body-bg-color) 0px 4px 12px;
+  box-shadow: var(--shadow);
 }
 
 .ais-ClearRefinements-button:disabled {

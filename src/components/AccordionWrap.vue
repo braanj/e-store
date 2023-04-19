@@ -14,7 +14,7 @@ export default class AccordionWrap extends Vue {}
 
 <style lang="scss">
 .accordion {
-  box-shadow: var(--body-bg-color) 0px 4px 12px;
+  box-shadow: var(--shadow);
   border-radius: 5px;
   overflow: hidden;
 }

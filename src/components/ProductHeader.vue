@@ -1,9 +1,9 @@
 <template>
-  <div class="row">
+  <div class="row pt-5 pb-3">
     <div class="col">
       <span class="infos text-uppercase">Lorem ipsum dolor sit amet consectetur.</span>
 
-      <div class="d-flex align-items-center gap-2 price">
+      <div class="d-flex align-items-center gap-3 price">
         <span class="total">Total: 9.99 €</span>
         <span class="coupon">10% off</span>
       </div>
@@ -58,10 +58,10 @@ export default class ProductHeader extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .infos {
   color: var(--item-color);
-  font-size: 1rem;
+  font-size: .9em;
 
   strong {
     color: #000;
@@ -81,6 +81,8 @@ export default class ProductHeader extends Vue {
     text-transform: uppercase;
     padding: .2em .5em;
     border-radius: .6em;
+    font-size: .75em;
+    opacity: .8;
   }
 }
 
@@ -96,10 +98,14 @@ export default class ProductHeader extends Vue {
       height: 5px;
       border-radius: 50px;
       margin-left: 1em;
-      margin-right: .5em;
+      margin-right: .25em;
       background-color: #b2b2b4;
       display: inline-block;
     }
   }
+}
+
+.favorites {
+  padding: 0;
 }
 </style>

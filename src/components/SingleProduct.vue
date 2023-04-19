@@ -81,7 +81,7 @@ export default class SingleProduct extends Vue {
     width: 300px;
     background-color: var(--element-bg-color);
     color: inherit;
-    box-shadow: var(--body-bg-color) 0px 4px 12px;
+    box-shadow: var(--shadow);
     padding-bottom: 1.5rem;
 
     .card-img {

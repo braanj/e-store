@@ -32,20 +32,6 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-:root {
-  --border-color: rgba(0, 0, 0, .125);
-  --body-bg-color: #f3f3f6;
-  --element-bg-color: #fcfcfc;
-  --item-color: #82858d;
-  --gray-bg-color: #e7e7eb;
-}
-
-html,
-body {
-  font-size: 16px;
-  background-color: var(--body-bg-color);
-}
-
 #app {
   position: relative;
 }

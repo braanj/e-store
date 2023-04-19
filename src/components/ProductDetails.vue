@@ -1,34 +1,38 @@
 <template>
-  <div class="product-details py-5">
-    <div class="row">
+  <div class="product-details">
+    <div class="row gap-5">
       <div class="col">
-        <!-- Product header -->
         <ProductHeader />
-        <!-- product Images -->
         <div class="d-flex justify-content-center">
+          <!-- todo: integrer le carousel images -->
           <img src="../assets/products/product-gray.png" alt="">
+          
         </div>
       </div>
-      <div class="col-lg-3">
-        <!-- Product cusomizations -->
-        side bar
+      <div class="col-lg-4">
+        <ProductOptions />
       </div>
     </div>
-    <div>
-      <!-- Product tabs -->
+    <div class="py-5">
+      Product tabs
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import ProductHeader from './ProductHeader.vue';
+import ProductOptions from './ProductOptions.vue';
+import { Product } from '@/models/Product';
 
 @Component({
   components: {
-    ProductHeader
+    ProductHeader,
+    ProductOptions
   },
 })
 
-export default class ProductDetails extends Vue { }
+export default class ProductDetails extends Vue {
+  @Prop() product!: Product
+}
 </script>
