@@ -81,7 +81,7 @@ export default class SingleProduct extends Vue {
     width: 300px;
     background-color: var(--element-bg-color);
     color: inherit;
-    box-shadow: var(--body-bg-color) 0px 4px 12px;
+    box-shadow: var(--shadow);
     padding-bottom: 1.5rem;
 
     .card-img {
@@ -92,13 +92,6 @@ export default class SingleProduct extends Vue {
 
     .card-body {
       border-top: 2px solid var(--body-bg-color);
-    }
-
-    .favorites {
-      padding: 0.5rem 0.75rem;
-      border-radius: 5px;
-      background-color: var(--body-bg-color);
-      border: unset;
     }
 
     .card-title {
@@ -148,5 +141,12 @@ export default class SingleProduct extends Vue {
       // }
     }
   }
+}
+
+.favorites {
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  background-color: var(--body-bg-color);
+  border: unset;
 }
 </style>

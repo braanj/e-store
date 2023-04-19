@@ -1,1 +1,20 @@
 @import url("https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css");
+
+:root {
+  // Colors
+  --border-color: rgba(0, 0, 0, .125);
+  --body-bg-color: #f3f3f6;
+  --element-bg-color: #fcfcfc;
+  --item-color: #82858d;
+  --gray-bg-color: #e7e7eb;
+
+  // Shadow
+  --shadow: var(--body-bg-color) 0px 4px 12px;
+
+}
+
+html,
+body {
+  font-size: 16px;
+  background-color: var(--body-bg-color);
+}
