@@ -11,6 +11,7 @@
     "@meilisearch/instant-meilisearch": "^0.12.0",
     "animate.css": "^4.1.1",
     "core-js": "^3.8.3",
+    "swiper-vue2": "^1.0.10",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.3",
     "vue-instantsearch": "^4.8.10",
