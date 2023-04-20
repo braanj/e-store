@@ -1,12 +1,11 @@
 <template>
   <div class="product-details">
-    <div class="row gap-5">
-      <div class="col">
+    <div class="row gap-3 justify-content-between">
+      <div class="col-lg-7">
         <ProductHeader />
         <div class="d-flex justify-content-center">
           <!-- todo: integrer le carousel images -->
-          <img src="../assets/products/product-gray.png" alt="">
-          
+          <ThumbsSwiper />
         </div>
       </div>
       <div class="col-lg-4">
@@ -24,11 +23,13 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import ProductHeader from './ProductHeader.vue';
 import ProductOptions from './ProductOptions.vue';
 import { Product } from '@/models/Product';
+import ThumbsSwiper from './ThumbsGallery.vue';
 
 @Component({
   components: {
     ProductHeader,
-    ProductOptions
+    ProductOptions,
+    ThumbsSwiper
   },
 })
 
