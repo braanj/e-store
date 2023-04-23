@@ -18,7 +18,6 @@ const getters: GetterTree<IProductState, RootState> = {
 
 const mutations: MutationTree<IProductState> = {
   SET_FAVORITES(st: IProductState, payload: string) {
-    console.log("hello", payload);
     const is = st.product.favorites.findIndex((f) => f === payload);
     if (is !== -1) st.product.favorites.splice(is, 1);
     else st.product.favorites.push(payload);

@@ -4,11 +4,10 @@
       <div class="col-lg-7">
         <ProductHeader />
         <div class="d-flex justify-content-center">
-          <!-- todo: integrer le carousel images -->
           <ThumbsSwiper />
         </div>
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-4 px-4">
         <ProductOptions />
       </div>
     </div>

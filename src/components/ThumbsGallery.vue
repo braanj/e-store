@@ -5,24 +5,24 @@
     :slidesPerView="1"
     :freeMode="false"
     :watchSlidesProgress="true"
-    ref="slide1"
     @slideChange="e => onSwiper(e, 1)"
     @swiper="e => onSwiper(e, 1)"
-    class="slide1"
-    :thumbs="{swiper: swiper2}"
+    class="main-swiper"
+    :thumbs="{swiper: navigationSwiper}"
   >
-    <swiper-slide v-for="i in 10" :key="i"><img src="../assets/products/product-gray.png" alt=""></swiper-slide>
+    <swiper-slide v-for="i in 10" :key="i">
+      <img src="../assets/products/product-gray.png" alt="">
+    </swiper-slide>
   </swiper>
-  <!-- Thumbs du navigation -->
+
   <swiper
-    ref="slide2"
     @swiper="e => onSwiper(e, 2)"
     @slideChange="e => onSwiper(e, 2)"
     :spaceBetween="15"
-    :slidesPerView="5"
+    slidesPerView="auto"
     :freeMode="false"
     :watchSlidesProgress="true"
-    class="slide2"
+    class="navigation-swiper"
   >
     <swiper-slide v-for="i in 10" :key="i">
       <img src="../assets/products/product-gray.png" alt="" @click="slideTo(i - 1)">
@@ -55,18 +55,31 @@ SwiperCore.use([Navigation, Pagination, Thumbs])
   }
 })
 export default class ThumbsGallery extends Vue {
-  swiper1: any = null
-  swiper2: any = null
+  mainSwiper: any = null
+  navigationSwiper: any = null
 
+  /**
+   * Handles the `swiper` event and sets the `mainSwiper` or `navigationSwiper` value 
+   * based on the `index` parameter.
+   * 
+   * @param {any} swiper - The Swiper instance that fired the event.
+   * @param {number} index - The index of the Swiper component.
+   */
   onSwiper(swiper: any, index: number) {
-    if (index === 1) this.swiper1 = swiper
-    else this.swiper2 = swiper
+    if (index === 1) this.mainSwiper = swiper
+    else this.navigationSwiper = swiper
   }
 
+  /**
+   * Slides the Swiper component to the specified slide.
+   * 
+   * @param {'next' | 'prev' | number} to - The destination slide or direction 
+   * ('next' or 'prev').
+   */
   slideTo(to: 'next' | 'prev' | number) {
-    if (typeof to === 'number') this.swiper1.slideTo(to)
-    else if (to === 'next') this.swiper1.slideNext()
-    else this.swiper1.slidePrev()
+    if (typeof to === 'number') this.mainSwiper.slideTo(to)
+    else if (to === 'next') this.mainSwiper.slideNext()
+    else this.mainSwiper.slidePrev()
   }
 }
 </script>
@@ -82,7 +95,7 @@ export default class ThumbsGallery extends Vue {
     left: 50%;
     transform: translate(-50%);
     width: 90%;
-    max-width: 550px;
+    max-width: 600px;
     height: 60px;
     display: flex;
     justify-content: space-between;
@@ -99,12 +112,12 @@ export default class ThumbsGallery extends Vue {
   height: 100%;
 
 }
-.slide1 {
+.main-swiper {
   height: 390px;
 }
 
-.slide2 {
-  width: 60%;
+.navigation-swiper {
+  width: 70%;
   margin-top: 50px;
   
   .swiper-slide {
