@@ -1,7 +1,6 @@
 <template>
   <div
     class="accordion-sidebar p-0"
-    :class="{ mobile: config.isMobile }"
   >
     <div
       class="back"
@@ -28,17 +27,18 @@
 </template>
 
 <script lang="ts">
-import { IConfig } from "@/store/types/Config";
 import { Vue, Component } from "vue-property-decorator";
-import { Getter } from "vuex-class";
 import "animate.css";
 import AccordionFilter from "./AccordionFilter.vue";
 
 @Component({ components: { AccordionFilter } })
 export default class AccordionSidebar extends Vue {
-  @Getter("get", { namespace: "config" }) config!: IConfig;
-
   showContent = true;
+
+  /**
+   * Sets `showContent` to false and waits 500 milliseconds before emitting a "close" event.
+   * @emits close - An event emitted when the sidebar is closed.
+   */
   close() {
     this.showContent = false;
     setTimeout(() => this.$emit("close"), 500);
@@ -48,9 +48,6 @@ export default class AccordionSidebar extends Vue {
 
 <style lang="scss">
 .accordion-sidebar {
-  .accordion {
-    box-shadow: unset !important;
-  }
   position: fixed;
   top: 0;
   left: 0;
@@ -85,6 +82,10 @@ export default class AccordionSidebar extends Vue {
     background-color: #fff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     animation-duration: 0.5s;
+  }
+
+  .accordion {
+    box-shadow: unset !important;
   }
 }
 </style>

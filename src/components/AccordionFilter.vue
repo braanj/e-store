@@ -22,8 +22,6 @@ import AccordionItem from "./AccordionItem.vue";
 @Component({ components: { AccordionWrap, AccordionItem } })
 export default class AccordionFilter extends Vue {
   filters = ["category", "sizes", "sexe", "sexes", "colors"];
-
-
 }
 </script>
 
