@@ -20,7 +20,7 @@ const mutations: MutationTree<IProductState> = {
   SET_FAVORITES(st: IProductState, payload: string) {
     const is = st.product.favorites.findIndex((f) => f === payload);
     if (is !== -1) st.product.favorites.splice(is, 1);
-    else st.product.favorites.push(payload);
+    else if (payload != undefined) st.product.favorites.push(payload);
   },
 };
 

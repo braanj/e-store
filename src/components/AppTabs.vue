@@ -91,8 +91,8 @@ $border: 2px solid var(--body-bg-color);
   padding: 1.5em;
   background-color: var(--element-bg-color);
   ul {
-    list-style-position: inside;
-    padding-left: 0;
+    list-style-position: outside;
+    padding-left: 1em;
     margin-top: 1em;
 
     display: flex;

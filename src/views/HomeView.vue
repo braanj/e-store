@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <GridLayout />
+    <InstantSearch />
   </div>
 </template>
 
 <script lang="ts">
-import GridLayout from '@/components/GridLayout.vue';
+import InstantSearch from '@/components/InstantSearch.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    GridLayout
+    InstantSearch
   },
 })
 
