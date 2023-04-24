@@ -4,11 +4,15 @@
       <div class="col-lg-7">
         <ProductHeader :product="product"/>
         <div class="d-flex justify-content-center">
-          <ThumbsSwiper />
+          <ThumbsSwiper :images="product.images" />
         </div>
       </div>
       <div class="col-lg-4 px-4">
-        <ProductOptions />
+        <!-- <div class="mt-5 pb-3 row variant-container align-items-center">
+          <h3 class="fs-4">{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+        </div> -->
+        <ProductOptions :options="product.options" />
       </div>
     </div>
     <AppTabs :tabList="tabList">

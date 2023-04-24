@@ -1,19 +1,21 @@
 <template>
   <div class="row pt-5 pb-3">
     <div class="col">
-      <span class="infos text-uppercase">Lorem ipsum dolor sit amet consectetur.</span>
-
+      <span class="infos text-uppercase">SKU: {{ product.sku }}</span>
       <div class="d-flex align-items-center gap-3 price">
-        <span class="total">Total: 9.99 €</span>
-        <span class="coupon">10% off</span>
+        <span v-if="!product.coupon" class="total">Total: {{ product.price }} €</span>
+        <div v-else class="d-flex align-items-center gap-3">
+          <span class="total">Total: {{ applyCoupon(product.price, product.coupon) }} €</span>
+          <span class="coupon">{{ product.coupon }}% off</span>
+        </div>
       </div>
 
       <div class="infos d-flex flex-wrap gap-2">
-        <div class="d-flex gap-2 quantity">
+        <div class="d-flex gap-2 quantity flex-wrap">
           <span>Qty 1-9: <strong>2.45 €</strong></span>
           <span>Qty 10+: <strong>1.95 €</strong></span>
         </div>
-        <span>Shipping time</span>
+        <span>5 weeks lead time</span>
       </div>
     </div>
 
@@ -34,9 +36,9 @@ import FavoriteButton from "./FavoriteButton.vue";
 export default class ProductHeader extends Vue {
   @Prop() product!: Product;
 
-  // applyCoupon(price: number, coupon: number) {
-  //   return (price - price * (coupon / 100)).toFixed(2);
-  // }
+  applyCoupon(price: number, coupon: number) {
+    return (price - price * (coupon / 100)).toFixed(2);
+  }
 }
 </script>
 

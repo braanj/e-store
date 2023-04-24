@@ -1,8 +1,12 @@
 <template>
   <div class="single-product col">
+    <transition
+      appear
+      enter-active-class="animate__slideInLeft"
+      >
     <router-link
-      :to="'/product?id=' + product.id"
-      class="card h-100"
+      :to="'/product/' + product.id"
+      class="card h-100 animate__animated"
     >
       <img
         src="../assets/products/product-gray.png"
@@ -34,6 +38,7 @@
         <p class="card-text">{{ product.description }}</p>
       </div>
     </router-link>
+    </transition>
   </div>
 </template>
 
@@ -58,6 +63,7 @@ export default class SingleProduct extends Vue {
 .single-product {
   height: 100%;
   position: relative;
+  overflow: hidden;
 
   .card {
     text-decoration: unset;
