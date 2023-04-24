@@ -1,21 +1,21 @@
 <template>
-  <div class="container py-5">
+  <div :class="{ 'container py-5': searchable }">
     <ais-instant-search
       :search-client="searchClient"
       index-name="products"
     >
-      <ais-configure :hits-per-page.camel="12" />
+      <ais-configure :hits-per-page.camel="productsPerPage" />
 
       <div class="row justify-content-center">
-        <AccordionFilter v-if="!config.isTablette && !config.isMobile" />
+        <AccordionFilter v-if="!config.isTablette && !config.isMobile && searchable" />
         <AccordionSidebar
-          v-else-if="showSidebar"
+          v-else-if="showSidebar && searchable"
           @close="showSidebar = false"
         >
         </AccordionSidebar>
 
         <div class="col">
-          <div class="grid-header">
+          <div class="grid-header" v-if="searchable">
             <button
               class="toggle-filters"
               v-if="config.isTablette || config.isMobile"
@@ -45,7 +45,7 @@
           </ais-hits>
         </div>
 
-        <div class="col-12 mt-3">
+        <div class="col-12 mt-3" v-if="searchable">
           <ais-pagination />
         </div>
       </div>
@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import SingleProduct from "./SingleProduct.vue";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
@@ -66,7 +66,15 @@ import AccordionFilter from "./AccordionFilter.vue";
 @Component({
   components: { SingleProduct, AccordionSidebar, AccordionFilter },
 })
-export default class extends Vue {
+export default class InstantSearch extends Vue {
+  @Prop({
+    default: true,
+  }) searchable!: boolean
+
+  @Prop({
+    default: 12,
+  }) productsPerPage!: number
+
   searchClient = instantMeiliSearch(
     "https://ms-a09b1b93b440-2535.sfo.meilisearch.io/",
     process.env.VUE_APP_DB_KEY_TOKEN

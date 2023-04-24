@@ -18,22 +18,7 @@
     </div>
 
     <div class="col-3 text-end">
-      <!-- <button
-        class="favorites"
-        @click.prevent="setFavorites(product.id)"
-      >
-        <i
-          v-if="!store.favorites.includes(product.id)"
-          class="fa fa-heart-o"
-        ></i>
-        <i
-          v-else
-          class="fa fa-solid fa-heart"
-        ></i>
-      </button> -->
-      <button class="favorites">
-        <i class="fa fa-heart-o"></i>
-      </button>
+      <FavoriteButton :id="product.id" />
     </div>
   </div>
 </template>
@@ -41,16 +26,13 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { Product } from "@/models/Product";
-import { Action, Getter } from "vuex-class";
-import { IProduct } from "@/store/types/Product.js";
+import FavoriteButton from "./FavoriteButton.vue";
 
-@Component
+@Component({ components: {
+  FavoriteButton
+}})
 export default class ProductHeader extends Vue {
   @Prop() product!: Product;
-  @Getter("get", { namespace: "product" }) store!: IProduct;
-  @Action("setFavorites", { namespace: "product" }) setFavorites!: (
-    param: string
-  ) => void;
 
   // applyCoupon(price: number, coupon: number) {
   //   return (price - price * (coupon / 100)).toFixed(2);

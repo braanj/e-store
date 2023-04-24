@@ -2,7 +2,7 @@
   <div class="product-details">
     <div class="row gap-3 justify-content-between">
       <div class="col-lg-7">
-        <ProductHeader />
+        <ProductHeader :product="product"/>
         <div class="d-flex justify-content-center">
           <ThumbsSwiper />
         </div>
@@ -24,6 +24,7 @@
       Consequatur autem, optio neque non amet molestias earum eaque provident deleniti odit dolorum voluptatem ratione numquam laboriosam dolore nam commodi quod voluptatum assumenda itaque esse qui libero placeat. Ipsa, enim! <br>
       Culpa, mollitia ipsum expedita tempore ea, exercitationem dicta laudantium quas esse aspernatur quia? A distinctio, nihil ratione nobis provident expedita laudantium alias delectus, corporis libero dolore placeat! Obcaecati, incidunt natus?</template>
     </AppTabs>
+    <RelatedProducts />
   </div>
 </template>
 
@@ -34,13 +35,15 @@ import ProductOptions from './ProductOptions.vue';
 import { Product } from '@/models/Product';
 import ThumbsSwiper from './ThumbsGallery.vue';
 import AppTabs from './AppTabs.vue';
+import RelatedProducts from './RelatedProducts.vue';
 
 @Component({
   components: {
     ProductHeader,
     ProductOptions,
     ThumbsSwiper,
-    AppTabs
+    AppTabs,
+    RelatedProducts
   },
 })
 
