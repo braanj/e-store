@@ -1,20 +1,19 @@
 <template>
-  <div class="pt-5">
+  <div class="related-products pt-5">
     <div class="mb-4">
       <h3>Related products</h3>
     </div>
-    <InstantSearch :searchable="false" :productsPerPage="8"/>
+    <ProductsList :searchable="false" :productsPerPage="8"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Product } from '@/models/Product';
-import InstantSearch from './InstantSearch.vue';
 
 @Component({
   components: {
-    InstantSearch,
+    ProductsList: () => import('./ProductsList.vue'),
   },
 })
 

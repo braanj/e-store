@@ -18,9 +18,10 @@ const routes: Array<RouteConfig> = [
     component: AboutView
   },
   {
-    path: '/product',
+    path: '/product/:id',
     name: 'product',
-    component: ProductView
+    component: ProductView,
+    props: route => ({ productId: route.params.id })
   }
 ]
 

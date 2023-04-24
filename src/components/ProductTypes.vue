@@ -1,55 +1,85 @@
 <template>
   <div class="option-container">
-    <div class="option-select d-flex justify-content-between align-items-center">
-      <span class="title">Choose Option</span>
+    <div class="option-select d-flex justify-content-between align-items-center" @click="toggleContent">
+      <span class="title">{{ title }}</span>
       <i class="fa fa-caret-down"></i>
     </div>
 
-    <div class="options-content">
-      <span class="subtitle">Castor Type</span>
-      <div class="options-wrap d-flex gap-3">
-        <div class="option selected">
-          <div class="checkbox">
-            <input type="radio" name="type" checked>
-            <div class="media">
-              <i class="fa fa-check"></i>
+    <transition
+      appear
+      enter-active-class="animate__slideInDown"
+      leave-active-class="animate__slideOutUp"
+      >
+      <div class="animate__animated" v-if="showContent">
+        <div v-for="(option, index) in options" :key="index" class="options-content">
+          <span class="subtitle">{{ option.title }}</span>
+          <div class="d-flex gap-3 flex-wrap">
+            <div v-for="(item, index) in option.items" :key="index" class="option">
+              <div class="checkbox">
+                <input type="radio" :name="option.title" :checked="index === 0">
+                <div class="media">
+                  <i class="fa fa-check"></i>
+                </div>
+              </div>
+              <span class="title">{{ item.title }}</span>
+              <small>{{ item.subtitle }}</small>
             </div>
           </div>
-          <span class="title">Hard</span>
-          <small>(for Soft floors)</small>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
+import { Option } from '@/models/Product';
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component({
   components: {}
 })
 export default class ProductTypes extends Vue {
-  @Prop() options!: []
+  @Prop({
+    default: 'Choose Option'
+  }) title!: string
+
+  @Prop() options!: Option[]
+
+  @Prop({
+    default: true
+  }) toggle!: boolean
+
+  showContent = true
+
+  toggleContent() {
+    this.showContent = !this.showContent
+  }
+
+  mounted() {
+    this.showContent = this.toggle
+  }
 }
 </script>
 
 <style lang="scss">
 .option-container {
-  background-color: var(--element-bg-color);
   border-radius: 5px;
   box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 .option-container {
   padding: 0;
-
+  
   .options-content,
   .option-select {
     padding: 1em 1.75em;
+    background-color: var(--element-bg-color);
+    position: relative;
   }
 
   .option-select {
+    z-index: 99;
     border-bottom: 2px solid var(--body-bg-color);
 
     i {
@@ -73,13 +103,13 @@ export default class ProductTypes extends Vue {
   .option {
     margin-top: 1em;
     text-align: center;
-    width: 100px;
+    width: 80px;
     line-height: normal;
 
     .media {
       position: relative;
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       background-color: var(--body-bg-color);
       border-radius: 5px;
       margin-bottom: .6em;

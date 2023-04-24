@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <InstantSearch />
+    <ProductsList />
   </div>
 </template>
 
 <script lang="ts">
-import InstantSearch from '@/components/InstantSearch.vue';
+import ProductsList from '@/components/ProductsList.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    InstantSearch
+    ProductsList
   },
 })
 

@@ -52,10 +52,6 @@ $border: 2px solid var(--body-bg-color);
   display: flex;
 }
 
-.animate__animated {
-  animation-duration: 0.5s;
-}
-
 .tab-nav {
   padding-left: 0;
   list-style: none;
@@ -91,7 +87,6 @@ $border: 2px solid var(--body-bg-color);
   padding: 1.5em;
   background-color: var(--element-bg-color);
   ul {
-    list-style-position: outside;
     padding-left: 1em;
     margin-top: 1em;
 
@@ -101,7 +96,6 @@ $border: 2px solid var(--body-bg-color);
 
     li {
       width: 45%;
-      min-width: 300px;
     }
   }
 

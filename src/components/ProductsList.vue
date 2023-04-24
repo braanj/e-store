@@ -1,18 +1,18 @@
 <template>
   <div :class="{ 'container py-5': searchable }">
+    {{ productId }}
     <ais-instant-search
       :search-client="searchClient"
       index-name="products"
     >
       <ais-configure :hits-per-page.camel="productsPerPage" />
-
-      <div class="row justify-content-center">
+      <!-- On Homepage -->
+      <div v-if="!single" class="row justify-content-center">
         <AccordionFilter v-if="!config.isTablette && !config.isMobile && searchable" />
         <AccordionSidebar
           v-else-if="showSidebar && searchable"
           @close="showSidebar = false"
-        >
-        </AccordionSidebar>
+        />
 
         <div class="col">
           <div class="grid-header" v-if="searchable">
@@ -49,6 +49,18 @@
           <ais-pagination />
         </div>
       </div>
+
+      <!-- On product page -->
+      <div class="p-page" v-else>
+        <ais-hits :transform-items="items => filterItems(items)">
+          <template
+            slot="item"
+            slot-scope="{ item }"
+          >
+            <ProductDetails :product="item" />
+          </template>
+        </ais-hits>
+      </div>
     </ais-instant-search>
   </div>
 </template>
@@ -62,11 +74,22 @@ import AccordionSidebar from "./AccordionSidebar.vue";
 import { IConfig } from "@/store/types/Config";
 import { Getter } from "vuex-class";
 import AccordionFilter from "./AccordionFilter.vue";
+import ProductDetails from "./ProductDetails.vue";
 
 @Component({
-  components: { SingleProduct, AccordionSidebar, AccordionFilter },
+  components: { SingleProduct, AccordionSidebar, AccordionFilter, ProductDetails },
 })
-export default class InstantSearch extends Vue {
+export default class ProductsList extends Vue {
+  @Getter("get", { namespace: "config" }) config!: IConfig;
+
+  @Prop({
+    default: false
+  }) single!: boolean
+
+  @Prop({
+    default: ''
+  }) productId!: string
+
   @Prop({
     default: true,
   }) searchable!: boolean
@@ -81,8 +104,9 @@ export default class InstantSearch extends Vue {
   );
 
   showSidebar = false;
-
-  @Getter("get", { namespace: "config" }) config!: IConfig;
+  filterItems(items) {
+    return items.filter(item => item.id === this.$route.params.id)
+  }
 }
 </script>
 
@@ -138,6 +162,21 @@ export default class InstantSearch extends Vue {
 .ais-Hits-item {
   list-style-type: none;
   width: 300px;
+}
+
+.p-page {
+  .ais-Hits-list {
+    gap: 1.5em;
+  }
+  .ais-Hits-item {
+    width: 100%;
+  }
+}
+
+.related-products {
+  .ais-Hits-item {
+    width: 300px;
+  }
 }
 
 .ais-Pagination-list {
