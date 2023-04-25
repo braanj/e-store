@@ -1,6 +1,6 @@
 <template>
   <div class="product-details">
-    <div class="row gap-3 justify-content-between">
+    <div class="row gap-3 justify-content-between align-items-start">
       <div class="col-lg-7">
         <ProductHeader :product="product"/>
         <div class="d-flex justify-content-center">
@@ -8,11 +8,7 @@
         </div>
       </div>
       <div class="col-lg-4 px-4">
-        <!-- <div class="mt-5 pb-3 row variant-container align-items-center">
-          <h3 class="fs-4">{{ product.name }}</h3>
-          <p>{{ product.description }}</p>
-        </div> -->
-        <ProductOptions :options="product.options" />
+        <ProductOptions :product="product" :options="product.options" />
       </div>
     </div>
     <AppTabs :tabList="tabList">

@@ -9,7 +9,7 @@
       class="card h-100 animate__animated"
     >
       <img
-        src="../assets/products/product-gray.png"
+        src="https://res.cloudinary.com/da3xvoa8e/image/upload/v1682435413/products/product-gray_fla5co.png"
         class="card-img"
         :alt="product.name"
       />
@@ -69,7 +69,6 @@ export default class SingleProduct extends Vue {
     text-decoration: unset;
     border-radius: 5px;
     border: unset;
-    width: 300px;
     background-color: var(--element-bg-color);
     color: inherit;
     box-shadow: var(--shadow);

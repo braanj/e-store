@@ -11,7 +11,7 @@
     :thumbs="{swiper: navigationSwiper}"
   >
     <swiper-slide v-for="i in 10" :key="i">
-      <img src="../assets/products/product-gray.png" alt="">
+      <img src="https://res.cloudinary.com/da3xvoa8e/image/upload/v1682435413/products/product-gray_fla5co.png" alt="">
     </swiper-slide>
   </swiper>
 
@@ -25,7 +25,7 @@
     class="navigation-swiper"
   >
     <swiper-slide v-for="i in 10" :key="i">
-      <img src="../assets/products/product-gray.png" alt="" @click="slideTo(i - 1)">
+      <img src="https://res.cloudinary.com/da3xvoa8e/image/upload/v1682435413/products/product-gray_fla5co.png" alt="" @click="slideTo(i - 1)">
     </swiper-slide>
   </swiper>
   <div class="cs-navigation">

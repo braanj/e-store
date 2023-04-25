@@ -4,12 +4,13 @@
   // Colors
   --border-color: rgba(0, 0, 0, .125);
   --body-bg-color: #f3f3f6;
+  --shadow-color: #f0f0f1;
   --element-bg-color: #fcfcfc;
   --item-color: #82858d;
   --gray-bg-color: #e7e7eb;
 
   // Shadow
-  --shadow: var(--body-bg-color) 0px 4px 12px;
+  --shadow: var(--shadow-color) 0px 4px 12px;
 
 }
 

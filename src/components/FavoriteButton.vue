@@ -1,17 +1,10 @@
 <template>
-  <button
-    class="favorites"
-    @click.prevent="setFavorites(id)"
-  >
-    <i
-      v-if="!store.favorites.includes(id)"
-      class="fa fa-heart-o"
-    ></i>
-    <i
-      v-else
-      class="fa fa-solid fa-heart"
-    ></i>
-  </button>
+  <transition appear enter-active-class="animate__fadeIn" leave-active-class="animate__slideOutUp">
+    <button class="favorites animate__animated" @click.prevent="setFavorites(id)">
+      <i v-if="!store.favorites.includes(id)" class="fa fa-heart-o"></i>
+      <i v-else class="fa fa-solid fa-heart"></i>
+    </button>
+  </transition>
 </template>
 
 <script lang="ts">
