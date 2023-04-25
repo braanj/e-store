@@ -1,10 +1,10 @@
 <template>
   <div class="row pt-5 pb-3">
-    <div class="col">
+    <div class="col-10">
       <span class="infos text-uppercase">SKU: {{ product.sku }}</span>
       <div class="d-flex align-items-center gap-3 price">
         <span v-if="!product.coupon" class="total">Total: {{ product.price }} €</span>
-        <div v-else class="d-flex align-items-center gap-3">
+        <div v-else class="d-flex align-items-center gap-3 flex-rap">
           <span class="total">Total: {{ applyCoupon(product.price, product.coupon) }} €</span>
           <span class="coupon">{{ product.coupon }}% off</span>
         </div>
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="col-3 text-end">
+    <div class="col text-end">
       <FavoriteButton :id="product.id" />
     </div>
   </div>
@@ -46,6 +46,7 @@ export default class ProductHeader extends Vue {
 .infos {
   color: var(--item-color);
   font-size: .9em;
+  font-weight: 500;
 
   strong {
     color: #000;
@@ -55,9 +56,8 @@ export default class ProductHeader extends Vue {
 
 .price {
   .total {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 600;
-    margin: .3em 0;
   }
 
   .coupon {
@@ -75,7 +75,7 @@ export default class ProductHeader extends Vue {
     display: flex;
     align-items: center;
     line-height: 1;
-
+    
     &::after {
       content: '';
       width: 5px;

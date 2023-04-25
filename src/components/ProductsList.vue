@@ -1,6 +1,5 @@
 <template>
   <div :class="{ 'container py-5': searchable }">
-    {{ productId }}
     <ais-instant-search
       :search-client="searchClient"
       index-name="products"
