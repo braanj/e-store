@@ -2,22 +2,22 @@
   <div class="variant-container align-items-center">
     <h1 class="p-title">{{ product.name }}</h1>
     <div class="categories">
-      <div class="cat-item">- {{ product.category }}</div>
+      <div class="cat-item">{{ product.category }}</div>
     </div>
     <p class="p-description">{{ product.description }}</p>
-    <ProductColors title="color" :items="product.colors"/>
-    <ProductColors title="size" type="square" :items="product.sizes"/>
+    <SelectSets title="color" :items="product.colors"/>
+    <SelectSets title="size" type="square" :items="product.sizes"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Product } from '@/models/Product';
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import ProductColors from './ProductColors.vue';
+import SelectSets from './SelectSets.vue';
 
 @Component({
   components: {
-    ProductColors
+    SelectSets
   }
 })
 export default class ProductVariant extends Vue {
