@@ -1,21 +1,21 @@
 <template>
-  <div class="colors-wrap">
-    <small v-if="getColorName" class="text-capitalize">
-      <span class="d-inline-block fw-bold">{{ title }}:</span> {{ getColorName() }}
+  <div class="sets-wrap">
+    <small v-if="getSetTitle" class="text-capitalize">
+      <span class="d-inline-block fw-bold">{{ title }}:</span> {{ getSetTitle() }}
     </small>
 
-    <div class="colors">
+    <div class="sets">
       <div
         v-for="(item, index) in items"
         :key="index"
-        class="color-item"
-        :class="{ selected: index === selectedColor, rounded: type === 'circle' }"
-        @click="setColor(index)"
+        class="set-item"
+        :class="{ selected: index === selectedSet, rounded: type === 'circle' }"
+        @click="selectSet(index)"
       >
         <transition appear enter-active-class="animate__fadeIn">
-          <div class="color-set">
+          <div class="item">
             <input :ref="title" type="radio" :name="title" :checked="index === 0" />
-            <span class="animate__animated" :style="{ backgroundColor: item }">
+            <span class="animate__animated" :style="{ backgroundColor: getColorHexCode(item) }">
               {{ displayItemText(item) }}
             </span>
           </div>
@@ -27,9 +27,10 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
+import chroma from 'chroma-js'
 
 @Component
-export default class ProductColors extends Vue {
+export default class ProductSets extends Vue {
   @Prop({
     required: true
   }) items!: []
@@ -43,14 +44,14 @@ export default class ProductColors extends Vue {
     required: true,
   }) title!: string
 
-  selectedColor = 0
+  selectedSet = 0
 
-  setColor(index: number) {
-    this.selectedColor = index
+  selectSet(index: number) {
+    this.selectedSet = index
   }
 
-  getColorName() {
-    return this.items ? this.items[this.selectedColor] : ''
+  getSetTitle() {
+    return this.items ? this.items[this.selectedSet] : ''
   }
 
   displayItemText(name: string) {
@@ -58,11 +59,16 @@ export default class ProductColors extends Vue {
       return name
     }
   }
+
+  getColorHexCode(color) {    
+    const code = this.type === 'circle' ? chroma(color).hex() : ''
+    return code
+  }
 }
 </script>
 
 <style lang="scss">
-.colors {
+.sets {
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
@@ -70,7 +76,7 @@ export default class ProductColors extends Vue {
   margin-top: 1em;
   margin-bottom: 1em;
 
-  .color-item {
+  .set-item {
     position: relative;
     width: 20px;
     height: 20px;
