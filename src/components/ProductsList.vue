@@ -32,8 +32,9 @@
               class="searchbox"
             />
           </div>
-          <small class="stats">
+          <small class="stats" v-if="searchable">
             <ais-stats />
+            <!-- <ais-current-refinements /> -->
           </small>
 
           <ais-hits :transform-items="items => filterProductsWithCategory(items)">
@@ -151,7 +152,8 @@ export default class ProductsList extends Vue {
 .stats {
   display: block;
   margin-bottom: .75em;
-  opacity: .8;
+  opacity: .5;
+  margin-left: 10px;
 }
 
 .grid-footer {

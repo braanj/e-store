@@ -15,7 +15,10 @@ export default class AccordionWrap extends Vue {}
 <style lang="scss">
 .accordion {
   box-shadow: var(--shadow);
-  border-radius: 5px;
+  border-radius: 10px;
   overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25em;
 }
 </style>
