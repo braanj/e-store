@@ -1,16 +1,18 @@
 <template>
   <div class="accordion-item">
     <span class="accordion-header" :id="'header_' + title">
-      <button class="accordion-button collapsed pb-0" type="button">
+      <button class="accordion-button collapsed border-bottom" type="button" @click="toggled = !toggled">
         <span>{{ title }}</span>
       </button>
     </span>
 
-    <div :id="'tab_' + title" class="accordion-collapse collapse show">
-      <div class="accordion-body border-">
+    <transition apear enter-active-class="animate__slideInDown" leave-active-class="animate__slideOutUp">
+    <div class="animate__animated" :id="'tab_' + title" v-if="toggled">
+      <div class="accordion-body">
         <slot></slot>
       </div>
     </div>
+  </transition>
   </div>
 </template>
 
@@ -22,13 +24,17 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 export default class AccordionItem extends Vue {
   @Prop() title!: string
   @Prop() index!: number
+
+  toggled = false
 }
 </script>
 
 <style lang="scss">
 .accordion-item {
+  overflow: hidden;
   border: 0;
   border-bottom: 2px solid var(--body-bg-color);
+  background-color: transparent;
 
   .accordion-header {
     .accordion-button {
@@ -54,61 +60,10 @@ export default class AccordionItem extends Vue {
       }
     }
   }
-}
 
-.ais-ClearRefinements-button {
-  padding: .5rem;
-  border-radius: 5px;
-  border: 0;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-  margin-bottom: 1rem;
-  background-color: var(--gray-bg-color);
-  box-shadow: var(--shadow);
-}
-
-.ais-ClearRefinements-button:disabled {
-  display: none;
-}
-
-.ais-RefinementList-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-
-.ais-RefinementList-item {
-  color: var(--item-colors);
-  font-size: 1.1rem;
-  &:hover,
-  &.ais-RefinementList-item--selected {
-    color: #000;
+  .accordion-body {
+    background-color: var(--element-bg-color);
   }
 }
 
-.ais-RefinementList-checkbox {
-  height: 18px;
-  width: 18px;
-}
-
-.ais-RefinementList-label {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  line-height: 1;
-  margin-top: 0.5rem;
-
-  .ais-RefinementList-count {
-    margin-left: .5rem;
-
-    &::before {
-      content: '(';
-    }
-
-    &::after {
-      content: ')';
-    }
-  }
-}</style>
+</style>

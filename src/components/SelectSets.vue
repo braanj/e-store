@@ -1,19 +1,18 @@
 <template>
   <div class="sets-wrap">
     <small v-if="getSetTitle" class="text-capitalize">
-      <span class="d-inline-block fw-bold">{{ title }}:</span> {{ getSetTitle() }}
+      <span class="d-inline-block fw-bold" v-if="title">{{ title }}:</span> {{ getSetTitle() }}
     </small>
-
     <div class="sets">
       <div
         v-for="(item, index) in items"
         :key="index"
         class="set-item"
-        :class="{ selected: index === selectedSet, rounded: type === 'circle' }"
+        :class="{ selected: index === selectedSet, 'is-rounded': type === 'circle' }"
         @click="selectSet(index)"
       >
         <transition appear enter-active-class="animate__fadeIn">
-          <div class="item">
+          <div class="item" >
             <input :ref="title" type="radio" :name="title" :checked="index === 0" />
             <span class="animate__animated" :style="{ backgroundColor: getColorHexCode(item) }">
               {{ displayItemText(item) }}
@@ -41,7 +40,7 @@ export default class ProductSets extends Vue {
   }) type!: 'square' | 'circle'
 
   @Prop({
-    required: true,
+    required: false,
   }) title!: string
 
   selectedSet = 0
@@ -60,7 +59,7 @@ export default class ProductSets extends Vue {
     }
   }
 
-  getColorHexCode(color) {    
+  getColorHexCode(color: string) {
     const code = this.type === 'circle' ? chroma(color).hex() : ''
     return code
   }
@@ -77,19 +76,21 @@ export default class ProductSets extends Vue {
   margin-bottom: 1em;
 
   .set-item {
-    position: relative;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .item {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     input {
       position: absolute;
       width: 100%;
       height: 100%;
       opacity: 0;
-      z-index: 999;
+      z-index: 9;
       top: 0;
       left: 0;
     }
@@ -120,7 +121,8 @@ export default class ProductSets extends Vue {
       }
     }
 
-    &.rounded {
+    &.is-rounded {
+      border-radius: 50px;
       span,
       span::before {
         border-radius: 50px;
