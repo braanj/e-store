@@ -30,11 +30,13 @@
             <ais-search-box
               placeholder="Search here…"
               class="searchbox"
-            >
-            </ais-search-box>
+            />
           </div>
+          <small class="stats">
+            <ais-stats />
+          </small>
 
-          <ais-hits>
+          <ais-hits :transform-items="items => filterProductsWithCategory(items)">
             <template
               slot="item"
               slot-scope="{ item }"
@@ -51,7 +53,7 @@
 
       <!-- On product page -->
       <div class="p-page" v-else>
-        <ais-hits :transform-items="items => filterItems(items)">
+        <ais-hits :transform-items="items => filterProductsWithId(items)">
           <template
             slot="item"
             slot-scope="{ item }"
@@ -86,10 +88,6 @@ export default class ProductsList extends Vue {
   }) single!: boolean
 
   @Prop({
-    default: ''
-  }) productId!: string
-
-  @Prop({
     default: true,
   }) searchable!: boolean
 
@@ -97,21 +95,31 @@ export default class ProductsList extends Vue {
     default: 12,
   }) productsPerPage!: number
 
+  @Prop({
+    required: false,
+    default: ''
+  }) filter!: string
+
   searchClient = instantMeiliSearch(
     "https://ms-a09b1b93b440-2535.sfo.meilisearch.io/",
     process.env.VUE_APP_DB_KEY_TOKEN
   );
 
   showSidebar = false;
-  filterItems(items) {
+  filterProductsWithId(items) {
     return items.filter(item => item.id === this.$route.params.id)
+  }
+  
+  filterProductsWithCategory(items) {
+    if (!this.searchable) items = items.filter(item => item.category === this.filter && item.id !== this.$route.params.id)
+    return items
   }
 }
 </script>
 
 <style lang="scss">
 .grid-header {
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -138,6 +146,12 @@ export default class ProductsList extends Vue {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+.stats {
+  display: block;
+  margin-bottom: .75em;
+  opacity: .8;
 }
 
 .grid-footer {

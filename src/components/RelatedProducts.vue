@@ -3,7 +3,7 @@
     <div class="mb-4">
       <h3>Related products</h3>
     </div>
-    <ProductsList :searchable="false" :productsPerPage="8"/>
+    <ProductsList :searchable="false" :productsPerPage="8" :filter="product.category"/>
   </div>
 </template>
 

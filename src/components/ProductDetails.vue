@@ -24,7 +24,7 @@
       Consequatur autem, optio neque non amet molestias earum eaque provident deleniti odit dolorum voluptatem ratione numquam laboriosam dolore nam commodi quod voluptatum assumenda itaque esse qui libero placeat. Ipsa, enim! <br>
       Culpa, mollitia ipsum expedita tempore ea, exercitationem dicta laudantium quas esse aspernatur quia? A distinctio, nihil ratione nobis provident expedita laudantium alias delectus, corporis libero dolore placeat! Obcaecati, incidunt natus?</template>
     </AppTabs>
-    <RelatedProducts />
+    <RelatedProducts :product="product" />
   </div>
 </template>
 
