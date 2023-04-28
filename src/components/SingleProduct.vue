@@ -132,11 +132,4 @@ export default class SingleProduct extends Vue {
     }
   }
 }
-
-.favorites {
-  padding: 0.5rem 0.75rem;
-  border-radius: 5px;
-  background-color: var(--body-bg-color);
-  border: unset;
-}
 </style>

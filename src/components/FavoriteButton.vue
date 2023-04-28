@@ -1,8 +1,8 @@
 <template>
   <transition appear enter-active-class="animate__fadeIn" leave-active-class="animate__slideOutUp">
-    <button class="favorites animate__animated" @click.prevent="setFavorites(id)">
-      <i v-if="!store.favorites.includes(id)" class="fa fa-heart-o"></i>
-      <i v-else class="fa fa-solid fa-heart"></i>
+    <button class="favorites animate-wrap animate__animated" @click.prevent="setFavorites(id)">
+      <i v-if="!store.favorites.includes(id)" class="fa fa-heart-o scale-up"></i>
+      <i v-else class="fa fa-solid fa-heart scale-up"></i>
     </button>
   </transition>
 </template>
@@ -22,3 +22,17 @@ export default class FavoriteButton extends Vue {
   ) => void;
 }
 </script>
+
+<style lang="scss">
+.favorites {
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  background-color: var(--body-bg-color);
+  border: unset;
+  &:hover {
+    i {
+      transform: scale(1.05);
+    }
+  }
+}
+</style>
