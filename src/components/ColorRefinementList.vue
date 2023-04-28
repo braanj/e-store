@@ -34,7 +34,7 @@
                     class="animate__animated fi fi-br-check"
                   ></i>
                 </transition>
-            </div>
+              </div>
             </span>
             <label class="title animate__animated" :key="`title_${item.value}`" :for="item.label">
               <ais-highlight attribute="item" :hit="item"/>
