@@ -1,6 +1,6 @@
 <template>
   <div class="slider">
-    <span>{{ min }}</span>
+    <span>{{ min }} {{ currency }}</span>
     <vue-slider
       v-if="canRefine"
       v-model="value"
@@ -10,7 +10,7 @@
       :enableCross="false"
     >
     </vue-slider>
-    <span>{{ max }}</span>
+    <span>{{ max }} {{ currency }}</span>
   </div>
 </template>
 
@@ -36,6 +36,8 @@ export default class RangeSlider extends Vue {
   }) refine
 
   @Prop() currentRefinement!: object
+
+  currency = '€'
   
   // Initialize the vue slider value
   value = [0, 0]
