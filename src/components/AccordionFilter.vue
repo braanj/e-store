@@ -2,7 +2,11 @@
 <template>
   <div class="filters-container px-3">
     <ais-clear-refinements>
-      <span slot="resetLabel">Remove all filters</span>
+      <span slot="resetLabel" class="animate-wrap">
+        <div class="resetLabel scale-up">
+          Remove all filters
+        </div>
+      </span>
     </ais-clear-refinements>
 
     <div class="filters">
@@ -24,10 +28,37 @@
             </ais-range-input>
           </template>
 
-          <ColorRefinementList
-            :filter="filter"
-            v-else-if="isColorFilter(filter)"
-          />
+          <ais-refinement-list
+            :attribute="filter"
+            :sort-by="sortBy"
+            show-more
+            :show-more-limit="100"
+            v-else-if="['colors', 'sizes', 'sexe', 'sexes'].includes(filter)"
+          >
+            <template
+              v-slot="{
+                items,
+                isShowingMore,
+                canToggleShowMore,
+                refine,
+                toggleShowMore
+              }"
+            >
+              <ColorRefinementList :items="items" :refine="refine" v-if="filter === 'colors'"/>
+              <ButtonRefinementList :items="items" :refine="refine" v-if="filter === 'sizes'"/>
+              <ButtonRefinementList :items="items" :refine="refine" v-if="['sexe', 'sexes'].includes(filter)"/>
+
+              <div class="animate-wrap">
+                <button
+                  class="ais-RefinementList-showMore scale-up"
+                  @click="toggleShowMore"
+                  :disabled="!canToggleShowMore"
+                >
+                  {{ !isShowingMore ? 'Show more' : 'Show less'}}
+                </button>
+              </div>
+            </template>
+          </ais-refinement-list>
 
           <ais-refinement-list
             v-else
@@ -53,6 +84,7 @@ import RangeSlider from './RangeSlider.vue'
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import ColorRefinementList from './ColorRefinementList.vue';
+import ButtonRefinementList from './ButtonRefinementList.vue';
 
 @Component({
   components: {
@@ -61,17 +93,13 @@ import ColorRefinementList from './ColorRefinementList.vue';
     SelectSets,
     VueSlider,
     RangeSlider,
-    ColorRefinementList
+    ColorRefinementList,
+    ButtonRefinementList
   }
 })
 export default class AccordionFilter extends Vue {
-  filters = ['price', "category", "sizes", "sexe", "sexes", "colors"];
-
+  filters = ['price', "category", "sizes", "sexe", "sexes", "colors"]
   sortBy = ['count']
-
-  isColorFilter(filter: string) {
-    return filter === 'colors'
-  }
 }
 </script>
 
@@ -83,8 +111,13 @@ export default class AccordionFilter extends Vue {
   }
 }
 
-.ais-RefinementList-showMore,
 .ais-ClearRefinements-button {
+  width: 100%;
+  background-color: transparent;
+  border: unset;
+}
+.ais-RefinementList-showMore,
+.resetLabel {
   padding: .5rem;
   border-radius: 5px;
   border: 0;
@@ -96,6 +129,10 @@ export default class AccordionFilter extends Vue {
   background-color: var(--gray-bg-color);
   font-weight: 600;
   font-size: .85em;
+  color: var(--item-color);
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .ais-RefinementList-showMore {
@@ -117,10 +154,10 @@ ul,
 
 .ais-RefinementList-item {
   font-size: .85rem;
-  color: var(--item-color);
+  color: #000;
   &:hover,
   &.ais-RefinementList-item--selected {
-    color: #000;
+    color: var(--item-color);
   }
 }
 

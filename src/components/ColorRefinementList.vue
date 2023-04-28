@@ -1,67 +1,45 @@
 <template>
-  <ais-refinement-list
-    :attribute="filter"
-    :sort-by="sortBy"
-    show-more
-    :show-more-limit="100"
-  >
-    <template
-      v-slot="{
-        items,
-        isShowingMore,
-        isFromSearch,
-        canToggleShowMore,
-        refine,
-        toggleShowMore
-      }"
+  <div class="filters-grid">
+    <span
+      v-for="(item) in items" :key="item.value"
+      @click.prevent="refine(item.value)"
+      class="color-item animate-wrap"
+      :class="{selected: item.isRefined}"
+      :title="item.label"
     >
-      <div class="filters-grid">
-        <span v-if="isFromSearch && !items.length">No results.</span>
-        <span
-          v-for="(item) in items" :key="item.value"
-          @click.prevent="refine(item.value)"
-          class="color-item animate-wrap"
-          :class="{selected: item.isRefined}"
-          :title="item.label"
-        >
-          <transition-group apear enter-active-class="animate__fadeIn" leave-active-class="animate__fadeOut">
-            <span class="color-wrap animate__animated" :key="`color_${item.value}`">
-              <div class="color scale-up" :style="{ backgroundColor: item.value }">
-                <transition apear enter-active-class="animate__fadeIn" leave-active-class="animate__fadeOut">
-                  <i
-                    :style="`color: ${getContrastColor(item.value)}`"
-                    v-if="item.isRefined"
-                    class="animate__animated fi fi-br-check"
-                  ></i>
-                </transition>
-              </div>
-            </span>
-            <label class="title animate__animated" :key="`title_${item.value}`" :for="item.label">
-              <ais-highlight attribute="item" :hit="item"/>
-              ({{ item.count.toLocaleString() }})
-            </label>
-          </transition-group>
+      <transition-group apear enter-active-class="animate__fadeIn" leave-active-class="animate__fadeOut">
+        <span class="color-wrap animate__animated" :key="`color_${item.value}`">
+          <div class="color scale-up" :style="{ backgroundColor: item.value }">
+            <transition apear enter-active-class="animate__fadeIn" leave-active-class="animate__fadeOut">
+              <i
+                :style="`color: ${getContrastColor(item.value)}`"
+                v-if="item.isRefined"
+                class="animate__animated fi fi-br-check"
+              ></i>
+            </transition>
+          </div>
         </span>
-      </div>
-      <button
-        class="ais-RefinementList-showMore"
-        @click="toggleShowMore"
-        :disabled="!canToggleShowMore"
-      >
-        {{ !isShowingMore ? 'Show more' : 'Show less'}}
-      </button>
-    </template>
-  </ais-refinement-list>
+        <label class="title animate__animated" :key="`title_${item.value}`" :for="item.label">
+          <ais-highlight attribute="item" :hit="item"/>
+          ({{ item.count.toLocaleString() }})
+        </label>
+      </transition-group>
+    </span>
+  </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import chroma from 'chroma-js'
+import { Filter } from '@/models/Filter';
 
 @Component
 export default class ColorRefinementList extends Vue {
-  @Prop() filter!: string
-  sortBy = ['count']
+  @Prop() items!: Filter[]
+
+  @Prop({
+    type: Function
+  }) refine
 
   getContrastColor = (
     bgColor,
