@@ -1,14 +1,12 @@
 <template>
-  <div class="accordion-item">
-    <span class="accordion-header" :id="'header_' + title">
-      <button class="accordion-button collapsed border-bottom" type="button">
-        <span>{{ title }}</span>
-      </button>
+  <div class="filter-set">
+    <span class="filter-header" :id="'header_' + title">
+      <span>{{ title }}</span>
     </span>
 
     <transition apear enter-active-class="animate__slideInDown" leave-active-class="animate__slideOutUp">
       <div class="animate__animated" :id="'tab_' + title">
-        <div class="accordion-body">
+        <div class="filter-items">
           <slot></slot>
         </div>
       </div>
@@ -30,41 +28,23 @@ export default class AccordionItem extends Vue {
 </script>
 
 <style lang="scss">
-.accordion-item {
+.filter-set {
   overflow: hidden;
   border: 0;
   width: 100%;
+  
 
-  .accordion-header {
-    .accordion-button {
-      text-transform: uppercase;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-
-      &:focus {
-        border-color: unset;
-        outline: 0;
-        box-shadow: none;
-      }
-
-      &::after {
-        display: none;
-      }
-
-      &:not(.collapsed) {
-        background-color: transparent;
-        color: inherit;
-      }
-
-      span::first-letter {
-        text-transform: uppercase;
-      }
-    }
+  .filter-header {
+    text-transform: uppercase;
+    padding: .75em 1em;
+    font-size: .85em;
+    opacity: .8;
+    background-color: var(--element-bg-color);
   }
 
-  .accordion-body {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+  .filter-items {
+    padding: .75em 1em;
+    background-color: var(--element-bg-color);
   }
 }
 

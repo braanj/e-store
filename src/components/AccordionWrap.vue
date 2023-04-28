@@ -1,5 +1,5 @@
 <template>
-  <div class="accordion" id="accordion-wrap">
+  <div class="filters">
     <slot></slot>
   </div>
 </template>
@@ -13,9 +13,8 @@ export default class AccordionWrap extends Vue {}
 </script>
 
 <style lang="scss">
-.accordion {
-  box-shadow: var(--shadow);
-  border-radius: 10px;
+.filters {
+  border-radius: 5px;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
