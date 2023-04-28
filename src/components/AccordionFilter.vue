@@ -15,7 +15,7 @@
                 v-slot="{
                   range,
                   canRefine,
-                  refine
+                  refine,
                 }"
               >
                 <RangeSlider :range="range" :canRefine="canRefine" :refine="refine" />
@@ -67,16 +67,6 @@ export default class AccordionFilter extends Vue {
   filters = ['price', "category", "sizes", "sexe", "sexes", "colors"];
 
   sortBy = ['count']
-  value = [0, 100]
-  rangeConverted = false
-
-  convertRange(object) {
-    if (!this.rangeConverted) {
-      this.rangeConverted = true
-      this.value = Object.keys(object).map((key) => object[key])
-      return Object.keys(object).map((key) => object[key])
-    }
-  }
 
   isColorFilter(filter: string) {
     return filter === 'colors'
@@ -125,8 +115,8 @@ ul,
 
 
 .ais-RefinementList-item {
-  font-size: 1rem;
-  color: var(--item-colors);
+  font-size: .85rem;
+  color: var(--item-color);
   &:hover,
   &.ais-RefinementList-item--selected {
     color: #000;
@@ -134,8 +124,8 @@ ul,
 }
 
 .ais-RefinementList-checkbox {
-  height: 18px;
-  width: 18px;
+  height: 1.2em;
+  width: 1.2em;
 }
 
 .ais-RefinementList-label {
