@@ -16,9 +16,10 @@
                   range,
                   canRefine,
                   refine,
+                  currentRefinement
                 }"
               >
-                <RangeSlider :range="range" :canRefine="canRefine" :refine="refine" />
+                <RangeSlider :currentRefinement="currentRefinement" :range="range" :canRefine="canRefine" :refine="refine" />
               </template>
             </ais-range-input>
           </template>
