@@ -50,7 +50,7 @@ import FavoriteButton from "./FavoriteButton.vue";
 @Component({ components: {
   FavoriteButton
 }})
-export default class SingleProduct extends Vue {
+export default class ProductCart extends Vue {
   @Prop() product!: Product;
 
   applyCoupon(price: number, coupon: number) {

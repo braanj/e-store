@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <ProductsList />
+    <StoreListing />
   </div>
 </template>
 
 <script lang="ts">
-import ProductsList from '@/components/ProductsList.vue';
+import StoreListing from '@/components/StoreListing.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    ProductsList
+    StoreListing
   },
 })
 

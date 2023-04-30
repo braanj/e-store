@@ -7,11 +7,13 @@
       <ais-configure :hits-per-page.camel="productsPerPage" />
       <!-- On Homepage -->
       <div v-if="!single" class="row justify-content-center">
-        <AccordionFilter v-if="!config.isTablette && !config.isMobile && searchable" />
-        <AccordionSidebar
+        <RefinementList v-if="!config.isTablette && !config.isMobile && searchable" />
+        <StoreSidebar
           v-else-if="showSidebar && searchable"
           @close="showSidebar = false"
-        />
+        >
+          <RefinementList />
+        </StoreSidebar>
 
         <div class="col">
           <div class="grid-header" v-if="searchable">
@@ -42,7 +44,7 @@
               slot="item"
               slot-scope="{ item }"
             >
-              <SingleProduct :product="item" />
+              <ProductCart :product="item" />
             </template>
           </ais-hits>
         </div>
@@ -59,7 +61,7 @@
             slot="item"
             slot-scope="{ item }"
           >
-            <ProductDetails :product="item" />
+            <ProductPage :product="item" />
           </template>
         </ais-hits>
       </div>
@@ -69,19 +71,19 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import SingleProduct from "./SingleProduct.vue";
+import ProductCart from "./ProductCart.vue";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
-import AccordionSidebar from "./AccordionSidebar.vue";
+import StoreSidebar from "./StoreSidebar.vue";
 import { IConfig } from "@/store/types/Config";
 import { Getter } from "vuex-class";
-import AccordionFilter from "./AccordionFilter.vue";
-import ProductDetails from "./ProductDetails.vue";
+import RefinementList from "./RefinementList.vue";
+import ProductPage from "./ProductPage.vue";
 
 @Component({
-  components: { SingleProduct, AccordionSidebar, AccordionFilter, ProductDetails },
+  components: { ProductCart, StoreSidebar, RefinementList, ProductPage },
 })
-export default class ProductsList extends Vue {
+export default class StoreListing extends Vue {
   @Getter("get", { namespace: "config" }) config!: IConfig;
 
   @Prop({

@@ -34,7 +34,7 @@ import chroma from 'chroma-js'
 import { Filter } from '@/models/Filter';
 
 @Component
-export default class ColorRefinementList extends Vue {
+export default class ColorRefinement extends Vue {
   @Prop() items!: Filter[]
 
   @Prop({

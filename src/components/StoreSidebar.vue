@@ -1,6 +1,6 @@
 <template>
   <div
-    class="accordion-sidebar p-0"
+    class="sidebar p-0"
   >
     <div
       class="back"
@@ -20,7 +20,7 @@
         >
           <i class="fa fa-times"></i>
         </button>
-        <AccordionFilter />
+        <slot></slot>
       </div>
     </transition>
   </div>
@@ -29,10 +29,9 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import "animate.css";
-import AccordionFilter from "./AccordionFilter.vue";
 
-@Component({ components: { AccordionFilter } })
-export default class AccordionSidebar extends Vue {
+@Component
+export default class StoreSidebar extends Vue {
   showContent = true;
 
   /**
@@ -47,7 +46,7 @@ export default class AccordionSidebar extends Vue {
 </script>
 
 <style lang="scss">
-.accordion-sidebar {
+.sidebar {
   position: fixed;
   top: 0;
   left: 0;

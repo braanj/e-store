@@ -29,7 +29,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 import chroma from 'chroma-js'
 
 @Component
-export default class ProductSets extends Vue {
+export default class InputRadio extends Vue {
   @Prop({
     required: true
   }) items!: []

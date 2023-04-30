@@ -9,7 +9,7 @@
     <transition enter-active-class="animate__fadeIn" leave-active-class="animate__fadeOut">
       <template v-for="(tab, index) in tabList">
         <div class="tab-content animate__animated" :key="index" v-if="isTabActive(index)">
-          <slot :name="`tabPanel-${index + 1}`" />
+          <slot :name="`tabPanel-${index + 1}`"></slot>
         </div>
       </template>
     </transition>
@@ -21,7 +21,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import "animate.css";
 
 @Component
-export default class AppTabs extends Vue {
+export default class StoreTabs extends Vue {
   @Prop({
     type: Array,
     required: true,

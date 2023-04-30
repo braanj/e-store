@@ -5,19 +5,19 @@
       <div class="cat-item">{{ product.category }}</div>
     </div>
     <p class="p-description">{{ product.description }}</p>
-    <SelectSets title="color" :items="product.colors"/>
-    <SelectSets title="size" type="square" :items="product.sizes"/>
+    <InputRadio title="color" :items="product.colors"/>
+    <InputRadio title="size" type="square" :items="product.sizes"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Product } from '@/models/Product';
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import SelectSets from './SelectSets.vue';
+import InputRadio from './InputRadio.vue';
 
 @Component({
   components: {
-    SelectSets
+    InputRadio
   }
 })
 export default class ProductVariant extends Vue {

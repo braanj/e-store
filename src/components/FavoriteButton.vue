@@ -31,7 +31,7 @@ export default class FavoriteButton extends Vue {
   border: unset;
   &:hover {
     i {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
   }
 }

@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/valid-v-model -->
 <template>
   <div class="filters-container px-3">
     <ais-clear-refinements>
@@ -10,94 +9,90 @@
     </ais-clear-refinements>
 
     <div class="filters">
-      <AccordionWrap>
-        <AccordionItem v-for="(filter, key) in filters" :key="key" :index="key" :title="filter">
+      <RefinementItem v-for="(filter, key) in filters" :key="key" :index="key" :title="filter">
 
-          <template v-if="filter === 'price'">
-            <ais-range-input :attribute="filter">
-              <template
-                v-slot="{
-                  range,
-                  canRefine,
-                  refine,
-                  currentRefinement
-                }"
-              >
-                <RangeSlider :currentRefinement="currentRefinement" :range="range" :canRefine="canRefine" :refine="refine" />
-              </template>
-            </ais-range-input>
-          </template>
-
-          <ais-refinement-list
-            :attribute="filter"
-            :sort-by="sortBy"
-            show-more
-            :show-more-limit="100"
-            v-else-if="['colors', 'sizes', 'sexe', 'sexes'].includes(filter)"
-          >
+        <template v-if="filter === 'price'">
+          <ais-range-input :attribute="filter">
             <template
               v-slot="{
-                items,
-                isShowingMore,
-                canToggleShowMore,
+                range,
+                canRefine,
                 refine,
-                toggleShowMore
+                currentRefinement
               }"
             >
-              <ColorRefinementList :items="items" :refine="refine" v-if="filter === 'colors'"/>
-              <ButtonRefinementList :items="items" :refine="refine" v-if="filter === 'sizes'"/>
-              <ButtonRefinementList :items="items" :refine="refine" v-if="['sexe', 'sexes'].includes(filter)"/>
-
-              <div class="animate-wrap">
-                <button
-                  class="ais-RefinementList-showMore scale-up"
-                  @click="toggleShowMore"
-                  :disabled="!canToggleShowMore"
-                >
-                  {{ !isShowingMore ? 'Show more' : 'Show less'}}
-                </button>
-              </div>
+              <InputSlider :currentRefinement="currentRefinement" :range="range" :canRefine="canRefine" :refine="refine" />
             </template>
-          </ais-refinement-list>
+          </ais-range-input>
+        </template>
 
-          <ais-refinement-list
-            v-else
-            :attribute="filter"
-            :show-more="true"
-            :limit="5"
-            :show-more-limit="100"
-            :sort-by="sortBy"
-          />
-        </AccordionItem>
-      </AccordionWrap>
+        <ais-refinement-list
+          :attribute="filter"
+          :sort-by="sortBy"
+          show-more
+          :show-more-limit="100"
+          v-else-if="['colors', 'sizes', 'sexe', 'sexes'].includes(filter)"
+        >
+          <template
+            v-slot="{
+              items,
+              isShowingMore,
+              canToggleShowMore,
+              refine,
+              toggleShowMore
+            }"
+          >
+            <ColorRefinement :items="items" :refine="refine" v-if="filter === 'colors'"/>
+            <ButtonRefinement :items="items" :refine="refine" v-if="filter === 'sizes'"/>
+            <ButtonRefinement :items="items" :refine="refine" v-if="['sexe', 'sexes'].includes(filter)"/>
+
+            <div class="animate-wrap">
+              <button
+                class="ais-RefinementList-showMore scale-up"
+                @click="toggleShowMore"
+                :disabled="!canToggleShowMore"
+              >
+                {{ !isShowingMore ? 'Show more' : 'Show less'}}
+              </button>
+            </div>
+          </template>
+        </ais-refinement-list>
+
+        <ais-refinement-list
+          v-else
+          :attribute="filter"
+          :show-more="true"
+          :limit="5"
+          :show-more-limit="100"
+          :sort-by="sortBy"
+        />
+      </RefinementItem>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import AccordionWrap from "./AccordionWrap.vue";
-import AccordionItem from "./AccordionItem.vue";
-import SelectSets from './SelectSets.vue'
-import RangeSlider from './RangeSlider.vue'
+import RefinementItem from "./RefinementItem.vue";
+import InputRadio from './InputRadio.vue'
+import InputSlider from './InputSlider.vue'
 
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
-import ColorRefinementList from './ColorRefinementList.vue';
-import ButtonRefinementList from './ButtonRefinementList.vue';
+import ColorRefinement from './ColorRefinement.vue';
+import ButtonRefinement from './ButtonRefinement.vue';
 
 @Component({
   components: {
-    AccordionWrap,
-    AccordionItem,
-    SelectSets,
+    RefinementItem,
+    InputRadio,
     VueSlider,
-    RangeSlider,
-    ColorRefinementList,
-    ButtonRefinementList
+    InputSlider,
+    ColorRefinement,
+    ButtonRefinement
   }
 })
-export default class AccordionFilter extends Vue {
+export default class RefinementList extends Vue {
   filters = ['price', "category", "sizes", "sexe", "sexes", "colors"]
   sortBy = ['count']
 }

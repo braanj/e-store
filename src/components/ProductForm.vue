@@ -20,7 +20,7 @@ import { Product } from '@/models/Product';
     ProductQuantity
   }
 })
-export default class ProductOptions extends Vue {
+export default class ProductForm extends Vue {
   @Prop() product!: Product
 
   handleSubmit() {

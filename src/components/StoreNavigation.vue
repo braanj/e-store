@@ -44,7 +44,7 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: "NavBar",
+  name: "StoreNavigation",
 })
 </script>
 
