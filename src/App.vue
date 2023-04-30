@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <NavBar />
+    <StoreNavigation />
     <router-view :key="$route.fullPath" />
-    <FooterNav />
+    <StoreFooter />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import NavBar from './components/NavBar.vue';
-import FooterNav from './components/FooterNav.vue';
+import StoreNavigation from './components/StoreNavigation.vue';
+import StoreFooter from './components/StoreFooter.vue';
 import { Getter, Action } from 'vuex-class';
 import { IConfig } from '@/store/types/Config'
 
-@Component({ components: { NavBar, FooterNav } })
+@Component({ components: { StoreNavigation, StoreFooter } })
 
 export default class App extends Vue {
 

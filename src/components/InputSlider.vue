@@ -1,6 +1,6 @@
 <template>
-  <div class="slider">
-    <span>{{ min }} {{ currency }}</span>
+  <div class="input-slider">
+    <span>{{ value[0] }} {{ currency }}</span>
     <vue-slider
       v-if="canRefine"
       v-model="value"
@@ -10,7 +10,7 @@
       :enableCross="false"
     >
     </vue-slider>
-    <span>{{ max }} {{ currency }}</span>
+    <span>{{ value[1] }} {{ currency }}</span>
   </div>
 </template>
 
@@ -26,15 +26,12 @@ import 'vue-slider-component/theme/antd.css'
     VueSlider
   }
 })
-export default class RangeSlider extends Vue {
+export default class InputSlider extends Vue {
   @Prop() canRefine!: boolean
-
   @Prop() range!: Range
-
   @Prop({
     type: Function
   }) refine
-
   @Prop() currentRefinement!: object
 
   currency = '€'
@@ -77,7 +74,7 @@ export default class RangeSlider extends Vue {
 </script>
 
 <style lang="scss">
-.slider {
+.input-slider {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 15px;

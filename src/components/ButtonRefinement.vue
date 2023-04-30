@@ -27,7 +27,7 @@ import { Filter } from '@/models/Filter';
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
-export default class ButtonRefinementList extends Vue {
+export default class ButtonRefinement extends Vue {
   @Prop() items!: Filter[]
   @Prop({
     type: Function
