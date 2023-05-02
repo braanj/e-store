@@ -4,6 +4,14 @@
       :search-client="searchClient"
       index-name="products"
     >
+      <!-- <ais-state-results>
+        <template v-slot="{ status }">
+          {{ status }}
+          <div v-show="status === 'loading' || status === 'stalled'">
+            <LoaderSpinner />
+          </div>
+        </template>
+      </ais-state-results> -->
       <ais-configure :hits-per-page.camel="productsPerPage" />
       <!-- On Homepage -->
       <div v-if="!single" class="row justify-content-center">
@@ -36,15 +44,18 @@
           </div>
           <small class="stats" v-if="searchable">
             <ais-stats />
-            <!-- <ais-current-refinements /> -->
+            <ais-current-refinements />
           </small>
 
-          <ais-hits :transform-items="items => filterProductsWithCategory(items)">
+          <div v-if="loading">
+            <LoaderSpinner />
+          </div>
+          <ais-hits v-else :transform-items="items => filterProductsWithCategory(items)">
             <template
               slot="item"
               slot-scope="{ item }"
             >
-              <ProductCart :product="item" />
+              <ProductCard :product="item" />
             </template>
           </ais-hits>
         </div>
@@ -56,7 +67,10 @@
 
       <!-- On product page -->
       <div class="p-page" v-else>
-        <ais-hits :transform-items="items => filterProductsWithId(items)">
+        <div v-if="loading">
+          <LoaderSpinner />
+        </div>
+        <ais-hits v-else :transform-items="items => filterProductsWithId(items)">
           <template
             slot="item"
             slot-scope="{ item }"
@@ -71,7 +85,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import ProductCart from "./ProductCart.vue";
+import ProductCard from "./ProductCard.vue";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 import StoreSidebar from "./StoreSidebar.vue";
@@ -79,9 +93,10 @@ import { IConfig } from "@/store/types/Config";
 import { Getter } from "vuex-class";
 import RefinementList from "./RefinementList.vue";
 import ProductPage from "./ProductPage.vue";
+import LoaderSpinner from "./LoaderSpinner.vue";
 
 @Component({
-  components: { ProductCart, StoreSidebar, RefinementList, ProductPage },
+  components: { ProductCard, StoreSidebar, RefinementList, ProductPage, LoaderSpinner },
 })
 export default class StoreListing extends Vue {
   @Getter("get", { namespace: "config" }) config!: IConfig;
@@ -103,6 +118,8 @@ export default class StoreListing extends Vue {
     default: ''
   }) filter!: string
 
+  loading = true
+
   searchClient = instantMeiliSearch(
     "https://ms-a09b1b93b440-2535.sfo.meilisearch.io/",
     process.env.VUE_APP_DB_KEY_TOKEN
@@ -116,6 +133,13 @@ export default class StoreListing extends Vue {
   filterProductsWithCategory(items) {
     if (!this.searchable) items = items.filter(item => item.category === this.filter && item.id !== this.$route.params.id)
     return items
+  }
+
+  created() {
+    // simulate a delay in fetching products
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   }
 }
 </script>
