@@ -44,7 +44,7 @@
           </div>
           <small class="stats" v-if="searchable">
             <ais-stats />
-            <ais-current-refinements />
+            <!-- <ais-current-refinements /> -->
           </small>
 
           <div v-if="loading">
