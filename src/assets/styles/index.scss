@@ -26,6 +26,11 @@ body {
 
 // Animations
 .animate-wrap {
+  &:hover {
+    .scale-up {
+      transform: scale(1.05);
+    }
+  }
   &:active {
     .scale-up {
       transition: all .2s;

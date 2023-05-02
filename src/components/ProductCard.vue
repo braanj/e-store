@@ -1,9 +1,5 @@
 <template>
   <div class="single-product col">
-    <transition
-      appear
-      enter-active-class="animate__slideInLeft"
-      >
     <router-link
       :to="'/product/' + product.id"
       class="card h-100 animate__animated"
@@ -38,7 +34,6 @@
         <p class="card-text">{{ product.description }}</p>
       </div>
     </router-link>
-    </transition>
   </div>
 </template>
 
@@ -50,7 +45,7 @@ import FavoriteButton from "./FavoriteButton.vue";
 @Component({ components: {
   FavoriteButton
 }})
-export default class ProductCart extends Vue {
+export default class ProductCard extends Vue {
   @Prop() product!: Product;
 
   applyCoupon(price: number, coupon: number) {

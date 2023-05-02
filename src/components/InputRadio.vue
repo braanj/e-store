@@ -12,9 +12,9 @@
         @click="selectSet(index)"
       >
         <transition appear enter-active-class="animate__fadeIn">
-          <div class="item" >
+          <div class="item animate-wrap" >
             <input :ref="title" type="radio" :name="title" :checked="index === 0" />
-            <span class="animate__animated" :style="{ backgroundColor: getColorHexCode(item) }">
+            <span class="animate__animated scale-up" :style="{ backgroundColor: getColorHexCode(item) }">
               {{ displayItemText(item) }}
             </span>
           </div>
