@@ -1,5 +1,5 @@
 <template>
-  <div class="row pt-5 pb-3">
+  <div class="row col">
     <div class="col-10">
       <span class="infos text-uppercase">SKU: {{ product.sku }}</span>
       <div class="d-flex align-items-center gap-3 price">
@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <div class="infos d-flex flex-wrap gap-2">
+      <div class="infos d-flex flex-wrap gap-2 align-items-center">
         <div class="d-flex gap-2 quantity flex-wrap">
           <span>Qty 1-9: <strong>2.45 €</strong></span>
           <span>Qty 10+: <strong>1.95 €</strong></span>
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="col text-end">
+    <div class="col text-end" v-if="favorite">
       <FavoriteButton :id="product.id" />
     </div>
   </div>
@@ -35,6 +35,9 @@ import FavoriteButton from "./FavoriteButton.vue";
 }})
 export default class ProductHeader extends Vue {
   @Prop() product!: Product;
+  @Prop({
+    default: true
+  }) favorite!: boolean
 
   applyCoupon(price: number, coupon: number) {
     return (price - price * (coupon / 100)).toFixed(2);

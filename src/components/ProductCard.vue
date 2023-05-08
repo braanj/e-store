@@ -1,7 +1,7 @@
 <template>
   <div class="single-product col">
     <router-link
-      :to="'/product/' + product.id"
+      :to="{name: 'product', params: {id: product.id }}"
       class="card h-100 animate__animated"
     >
       <img
