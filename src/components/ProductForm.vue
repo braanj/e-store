@@ -12,6 +12,9 @@ import ProductVariant from './ProductVariant.vue';
 import ProductTypes from './ProductTypes.vue';
 import ProductQuantity from './ProductQuantity.vue';
 import { Product } from '@/models/Product';
+import { Action, Getter } from 'vuex-class';
+import { IOrder } from '@/store/types/Order';
+import router from '@/router';
 
 @Component({
   components: {
@@ -23,8 +26,15 @@ import { Product } from '@/models/Product';
 export default class ProductForm extends Vue {
   @Prop() product!: Product
 
+  @Getter("get", { namespace: "order" }) store!: IOrder;
+  @Action("setOrder", { namespace: "order" }) setOrder!: (
+    param: Product
+  ) => void;
+
   handleSubmit() {
-    console.log('Form is submitted!');
+    this.setOrder(this.product);
+    console.log(this.store.orders);
+    router.push({ path: '/cart/' })
   }
 }
 </script>

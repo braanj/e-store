@@ -26,8 +26,10 @@ import LoaderSpinner from './LoaderSpinner.vue';
 
 export default class AisHits extends Vue {
   @Prop() single!: boolean
-
+  item = null
+  searchable = false
   loading = false
+  filter = false
 
   created() {
     // simulate a delay in fetching products
@@ -39,7 +41,7 @@ export default class AisHits extends Vue {
   filterProductsWithId(items) {
     return items.filter(item => item.id === this.$route.params.id)
   }
-  
+
   filterProductsWithCategory(items) {
     if (!this.searchable) items = items.filter(item => item.category === this.filter && item.id !== this.$route.params.id)
     return items
