@@ -1,8 +1,8 @@
 <template>
   <div v-if="store.orders.length !== 0" class="container cart bg-white my-3 p-0">
-    <span class="title">Summary</span>
+    <span class="title">Summary: <small class="text-muted fw-normal">You have {{ store.orders.length }} items in your cart.</small></span>
 
-    <div class="d-flex flex-wrap justify-content-center">
+    <div class="cart-items">
       <CartItem v-for="(product, index) in store.orders" :key="index" :product="product" />
     </div>
 
@@ -16,7 +16,6 @@
 import CartItem from '@/components/CartItem.vue';
 import InputNumber from '@/components/InputNumber.vue';
 import ProductHeader from '@/components/ProductHeader.vue';
-import { Product } from '@/models/Product';
 import { IOrder } from '@/store/types/Order';
 import { Component, Vue } from 'vue-property-decorator';
 import { Action, Getter } from 'vuex-class';
@@ -44,6 +43,10 @@ export default class HomeView extends Vue {
     font-size: 1.25em;
     line-height: 1;
     border-bottom: 1px solid var(--body-bg-color);
+  }
+
+  .cart-items {
+    padding: 1em;
   }
 }
 </style>

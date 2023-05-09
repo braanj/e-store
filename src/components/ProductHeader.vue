@@ -1,6 +1,6 @@
 <template>
-  <div class="row col">
-    <div class="col-10">
+  <div class="row">
+    <div :class="{'col-10': favorite}">
       <span class="infos text-uppercase">SKU: {{ product.sku }}</span>
       <div class="d-flex align-items-center gap-3 price">
         <span v-if="!product.coupon" class="total">Total: {{ product.price }} €</span>

@@ -25,9 +25,10 @@ button[type=submit] {
   background-color: #000;
   border: none;
   color: #fff;
-  padding: 1em 1.75em;
+  padding: .75em 1.75em;
   width: 100%;
   border-radius: 5px;
+  font-size: 1em;
 
   i {
     font-size: .75em;

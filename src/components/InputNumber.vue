@@ -33,8 +33,6 @@ $border: 2px solid #eee;
 
 .quantity {
   position: relative;
-  min-height: 50px;
-  max-height: 60px;
 }
 
 input[type=number]::-webkit-inner-spin-button,
