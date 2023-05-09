@@ -18,7 +18,7 @@ import InputNumber from '@/components/InputNumber.vue';
 import ProductHeader from '@/components/ProductHeader.vue';
 import { IOrder } from '@/store/types/Order';
 import { Component, Vue } from 'vue-property-decorator';
-import { Action, Getter } from 'vuex-class';
+import { Getter } from 'vuex-class';
 
 @Component({
   components: {
