@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '@/views/AboutView.vue'
 import ProductView from '@/views/ProductView.vue'
+import CartView from '@/views/CartView.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes: Array<RouteConfig> = [
     name: 'product',
     component: ProductView,
     props: route => ({ productId: route.params.id })
+  },
+  {
+    path: '/cart/',
+    name: 'cart',
+    component: CartView,
   }
 ]
 

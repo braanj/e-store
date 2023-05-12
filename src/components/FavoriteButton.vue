@@ -3,6 +3,7 @@
     <button class="favorites animate-wrap animate__animated" @click.prevent="setFavorites(id)">
       <i v-if="!store.favorites.includes(id)" class="fa fa-heart-o scale-up"></i>
       <i v-else class="fa fa-solid fa-heart scale-up"></i>
+      <slot></slot>
     </button>
   </transition>
 </template>
@@ -29,6 +30,9 @@ export default class FavoriteButton extends Vue {
   border-radius: 5px;
   background-color: var(--body-bg-color);
   border: unset;
+  display: flex;
+  gap: 10px;
+  align-items: center;
   &:hover {
     i {
       transform: scale(1.1);

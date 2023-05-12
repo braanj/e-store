@@ -1,22 +1,14 @@
 <template>
-  <div class="d-flex px-0 gap-3">
-    <div class="col-3 quantity">
-      <div class="quantity-nav">
-        <div class="quantity-button quantity-up" @click="count++">
-          <i class="fi fi-br-caret-up"></i>
-        </div>
-        <div class="quantity-button quantity-down" @click="count--">
-          <i class="fi fi-br-caret-down"></i>
-        </div>
+  <div class="col-3 quantity">
+    <div class="quantity-nav">
+      <div class="quantity-button quantity-up" @click="count++">
+        <i class="fi fi-br-caret-up"></i>
       </div>
-      <input type="number" name="quantity" min="1" :value="getValue()">
+      <div class="quantity-button quantity-down" @click="count--">
+        <i class="fi fi-br-caret-down"></i>
+      </div>
     </div>
-    <div class="col">
-      <button type="submit" class="d-flex align-items-center justify-content-between">
-        <span>Finish Configuration</span>
-        <i class="fa fa-arrow-right"></i>
-      </button>
-    </div>
+    <input type="number" name="quantity" min="1" :value="getValue()">
   </div>
 </template>
 
@@ -24,7 +16,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 
 @Component
-export default class ProductQuantity extends Vue {
+export default class InputNumber extends Vue {
   count = 1
 
   getValue() {
@@ -36,21 +28,8 @@ export default class ProductQuantity extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $border: 2px solid #eee;
-
-button[type=submit] {
-  background-color: #000;
-  border: none;
-  color: #fff;
-  padding: 1em 1.75em;
-  width: 100%;
-  border-radius: 5px;
-
-  i {
-    font-size: .75em;
-  }
-}
 
 .quantity {
   position: relative;
@@ -71,6 +50,8 @@ input[type=number]
 .quantity input {
   width: 100%;
   height: 100%;
+  min-height: 50px;
+  max-height: 60px;
   line-height: 1.65;
   float: left;
   display: block;
@@ -89,6 +70,8 @@ input[type=number]
   float: right;
   position: relative;
   height: 100%;
+  min-height: 50px;
+  max-height: 60px;
 }
 
 .quantity-button {
@@ -123,5 +106,4 @@ input[type=number]
   position: absolute;
   bottom: -1px;
   height: 50%;
-}
-</style>
+}</style>

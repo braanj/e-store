@@ -85,14 +85,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import ProductCard from "./ProductCard.vue";
+import ProductCard from "./product/ProductCard.vue";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 import StoreSidebar from "./StoreSidebar.vue";
 import { IConfig } from "@/store/types/Config";
 import { Getter } from "vuex-class";
 import RefinementList from "./RefinementList.vue";
-import ProductPage from "./ProductPage.vue";
+import ProductPage from "./product/ProductPage.vue";
 import LoaderSpinner from "./LoaderSpinner.vue";
 
 @Component({
