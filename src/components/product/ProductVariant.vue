@@ -13,7 +13,7 @@
 <script lang="ts">
 import { Product } from '@/models/Product';
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import InputRadio from './InputRadio.vue';
+import InputRadio from '../InputRadio.vue';
 
 @Component({
   components: {

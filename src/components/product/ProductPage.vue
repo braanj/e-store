@@ -33,9 +33,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import ProductHeader from './ProductHeader.vue';
 import ProductForm from './ProductForm.vue';
 import { Product } from '@/models/Product';
-import ThumbsSwiper from './ThumbsGallery.vue';
-import StoreTabs from './StoreTabs.vue';
-import RelatedProducts from './RelatedProducts.vue';
+import ThumbsSwiper from '../ThumbsGallery.vue';
+import StoreTabs from '../StoreTabs.vue';
+import RelatedProducts from '../RelatedProducts.vue';
 
 @Component({
   components: {

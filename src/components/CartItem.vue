@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import InputNumber from '@/components/InputNumber.vue';
-import ProductHeader from '@/components/ProductHeader.vue';
+import ProductHeader from '@/components/product/ProductHeader.vue';
 import { Product } from '@/models/Product';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import FavoriteButton from './FavoriteButton.vue';

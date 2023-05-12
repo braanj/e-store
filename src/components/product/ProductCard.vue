@@ -40,7 +40,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { Product } from "@/models/Product";
-import FavoriteButton from "./FavoriteButton.vue";
+import FavoriteButton from "../FavoriteButton.vue";
 
 @Component({ components: {
   FavoriteButton

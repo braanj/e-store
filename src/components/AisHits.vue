@@ -12,8 +12,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import ProductPage from './ProductPage.vue';
-import ProductCard from './ProductCard.vue';
+import ProductPage from './product/ProductPage.vue';
+import ProductCard from './product/ProductCard.vue';
 import LoaderSpinner from './LoaderSpinner.vue';
 
 @Component({

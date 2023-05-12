@@ -15,7 +15,7 @@
 <script lang="ts">
 import CartItem from '@/components/CartItem.vue';
 import InputNumber from '@/components/InputNumber.vue';
-import ProductHeader from '@/components/ProductHeader.vue';
+import ProductHeader from '@/components/product/ProductHeader.vue';
 import { IOrder } from '@/store/types/Order';
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter } from 'vuex-class';
